@@ -1,10 +1,20 @@
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
+import Main from "./pages/Main"
+
 function App() {
   return (
-    <div className="App">
-      <h1>
-        hi
-      </h1>
+    <Router>
+    <div>
+      <Switch>
+        <Route exact path="/" component={Main}/>
+      </Switch>
     </div>
+  </Router>
   );
 }
 
