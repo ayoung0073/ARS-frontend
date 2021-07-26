@@ -3,18 +3,6 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
-const Header = Layout;
-
-const Title = styled.div`
-    font-size: 18px;
-    font-weight: bold;
-    color: black;
-    padding-left: 5px;
-`
-
-const Sub = styled.div`
-    font-size: 12px;
-`
 
 function HeaderMain() {
     return (
@@ -28,5 +16,18 @@ function HeaderMain() {
         </Header>
     );
 }
+
+const Header = Layout;
+
+const Title = styled.div`
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    padding-left: 5px;
+`
+
+const Sub = styled.div`
+    font-size: 12px;
+`
 
 export default HeaderMain;
