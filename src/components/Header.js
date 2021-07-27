@@ -32,8 +32,6 @@ function HeaderMain() {
     );
 }
 
-const Header = Layout;
-
 const Container = styled.div`
     border-bottom: 1px rgb(219 221 224) solid;
 `

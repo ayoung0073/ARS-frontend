@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import Main from "./pages/Main"
+import Detail from "./pages/Detail"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div>
         <Switch>
           <Route exact path="/" component={Main} />
+          <Route exact path="/problems/:problemId" component={Detail} />
         </Switch>
       </div>
     </Router>
