@@ -20,6 +20,7 @@ function ProblemList(props) {
         )
     }
 }
+
 function Card(props) {
     return (
         <div>
