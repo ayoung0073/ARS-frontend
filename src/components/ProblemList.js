@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import 'antd/dist/antd.css';
+import { Link } from "react-router-dom";
 
 function ProblemList(props) {
     const problemList = props.problemList
@@ -11,7 +12,7 @@ function ProblemList(props) {
                     problemList.map((problem) => {
                         return (
                             <CardComponent className="card m-2">
-                                <Card title={problem.title} step={problem.step} tagList={problem.tagList} />
+                                <Card id={problem.id} title={problem.title} step={problem.step} tagList={problem.tagList} />
                             </CardComponent>
                         )
                     })}
@@ -24,7 +25,7 @@ function Card(props) {
         <div>
             <Step>{"⭐️".repeat(props.step)}</Step><br />
             <div className="card-body">
-                <div className="card-title"><h4>{props.title}</h4></div>
+                <Link to={`/problems/${props.id}`} style={{ textDecoration: 'none' }}><div className="card-title"><h4>{props.title}</h4></div></Link>
                 <br />
                 <TagList tagList={props.tagList} />
             </div>
@@ -39,7 +40,7 @@ function TagList(props) {
             {tagList.length != 0 &&
                 tagList.map((o) => {
                     return (
-                        <TagButton>{o.tag.tagName}</TagButton>
+                        <Link to={`/tags/name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{o.tag.tagName}</TagButton></Link>
                     )
                 })}
         </div>
@@ -65,6 +66,7 @@ const TagButton = styled.div`
     margin-left: 3px;
     margin-right: 3px;
 `
+
 const Step = styled.div`
     float: right;
     font-weight: bold;
@@ -72,9 +74,11 @@ const Step = styled.div`
     margin-right: 8px;
     margin-top: 6px;
 `
+
 const CardComponent = styled.div`
     margin: 5px;
     width: 400px;
     display: inline-block;
 `
+
 export default ProblemList;
