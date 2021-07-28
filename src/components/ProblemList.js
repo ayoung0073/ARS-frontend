@@ -78,7 +78,7 @@ const Step = styled.div`
 
 const CardComponent = styled.div`
     margin: 5px;
-    width: 400px;
+    width: 350px;
     display: inline-block;
 `
 

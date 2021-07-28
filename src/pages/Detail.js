@@ -41,6 +41,9 @@ const Detail = (props) => {
             <div className="container">
                 <Title>{problem.title}</Title>
                 <Step /> ·  알림 예정일  <b>{problem.notificationDate}</b>
+                <hr/>
+                <Link href={problem.link}>문제 링크</Link>
+                <hr/>
                 <div id="viewer"></div>
             </div>
         </div>
@@ -70,6 +73,7 @@ function Step() {
 const Title = styled.div`
     display: block;
     margin-top: 1.5%;
+    margin-bottom: 0.5%;
     padding: 0px;
     font-size: 2.75rem;
     width: 100%;
@@ -84,6 +88,12 @@ const Title = styled.div`
 const Star = styled.img`
     padding-bottom: 3px;
     width: 30px;
+`
+
+const Link = styled.a`
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
 `
 
 export default Detail;
