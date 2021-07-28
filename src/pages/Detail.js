@@ -18,13 +18,18 @@ const Detail = (props) => {
     const getProblem = async () => {
         const data = await getProblemApi(problemId);
         setProblem(data);
-        setReview(data.reviewList)
+        setReviewList(data.reviewList)
         setReview(data.reviewList[0])
     };
 
     useEffect(() => {
         getProblem();
     }, []);
+
+    const onClick = (reviewId) => {
+        console.log(reviewId)
+        setReview(reviewList[reviewId])
+    }
 
     let el = document.querySelector('#viewer')
     if (el !== null) {
@@ -38,18 +43,41 @@ const Detail = (props) => {
     return (
         <div>
             <HeaderMain />
-            <div className="container">
+            <Container>
                 <Title>{problem.title}</Title>
                 <Step /> ·  알림 예정일  <b>{problem.notificationDate}</b>
-                <hr/>
+                <hr />
                 <Link href={problem.link}>문제 링크</Link>
-                <hr/>
+                <hr />
                 <div id="viewer"></div>
-            </div>
+            </Container>
+            <ReviewList onClick={onClick} reviewList={reviewList} />
         </div>
     );
 }
 
+function ReviewList(props) {
+    const reviewList = props.reviewList;
+
+    return (
+        <div>
+            <Box className="card m-2">
+                <Button className="btn-secondary btn">Add Review</Button>
+                {reviewList.length > 0 &&
+                    reviewList.map((review, index) => {
+                        return (
+                            <div>
+                                <ReviewBlock>
+                                    <a onClick={() => props.onClick(index)}>{index + 1}. {review.createdDate.substr(0, 10)}</a>
+                                </ReviewBlock>
+                            </div>
+                        )
+                    })}
+            </Box>
+        </div>
+    )
+
+}
 
 function Step() {
     function selectStar(step) {
@@ -69,6 +97,13 @@ function Step() {
         </span>
     )
 }
+
+
+const Container = styled.div`
+    margin-top: 3%;
+    margin-left: 20%;
+    margin-right: 20%;
+`
 
 const Title = styled.div`
     display: block;
@@ -96,4 +131,28 @@ const Link = styled.a`
     background-color: transparent;
 `
 
+const Box = styled.div`
+    width: 240px;
+    margin-left: 1%;
+    border: none;
+    border-left: 2px solid rgb(233, 236, 239);
+    padding: 0.25rem 0.75rem;
+    color: rgb(134, 142, 150);
+    line-height: 1.5;
+    font-size: 0.875rem;
+    max-height: calc(100vh - 128px);
+    overflow: hidden auto;
+    position: fixed;
+    top: 30%;
+    right: 0px;
+`
+
+const Button = styled.button`
+    width: 85%;
+    margin-bottom: 8%;
+`
+
+const ReviewBlock = styled.div`
+    padding-left: 5%;    
+`
 export default Detail;
