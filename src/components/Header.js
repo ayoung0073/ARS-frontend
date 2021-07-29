@@ -8,23 +8,18 @@ function HeaderMain() {
     const [search, setSearch] = useState("")
 
     const onChange = (e) => {
-        if (e.key == 'Enter') {
-            onClick();
-        }
-        else {
-            setSearch(e.currentTarget.value)
-        }
+        setSearch(e.currentTarget.value)
     }
 
     const onClick = () => {
         console.log(search)
         window.location.href = "/search?q=" + search;
-        setSearch("")
     }
 
     const onKeyPress = (e) => {
         if (e.key == 'Enter') {
-            onClick();
+            e.preventDefault()
+            window.location.href = "/search?q=" + search;
         }
     }
 
