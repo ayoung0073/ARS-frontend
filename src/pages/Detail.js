@@ -101,6 +101,7 @@ const TagContainer = styled.div`
 `
 
 const Container = styled.div`
+    max-width: 1200px;
     margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;

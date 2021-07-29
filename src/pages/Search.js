@@ -47,8 +47,6 @@ const Search = (props) => {
 
 const SearchList = styled.div`
     max-width: 1200px;
-    margin-left: 130px;
-    margin-right: 130px;
 `
 
 const CardComponent = styled.div`
