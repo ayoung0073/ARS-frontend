@@ -15,9 +15,6 @@ function HeaderMain() {
                                 <a className="nav-link active" href="/">문제 등록</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">태그별</a>
-                            </li>
-                            <li className="nav-item">
                                 <a className="nav-link" href="#">난이도별</a>
                             </li>
                         </ul>

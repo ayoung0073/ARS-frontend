@@ -25,7 +25,7 @@ function TagList() {
             {tagList.length != 0 &&
                 tagList.map((tag) => {
                     return (
-                        <Link onClick={() => buttonClick(tag.tagName)} style={{ textDecoration: 'none' }}><TagButton>{tag.tagName}({tag.count})</TagButton></Link>
+                        <Link onClick={() => buttonClick(tag.tagName)} style={{ textDecoration: 'none' }}><TagButton>{tag.tagName}<TagCount>({tag.count})</TagCount></TagButton></Link>
                     )
                 })}
         </Container>
@@ -42,6 +42,11 @@ const TagTitle = styled.div`
     color: grey;
     margin-left: 1%;
     margin-bottom: 1%;
+`
+
+const TagCount = styled.span`
+    margin-left: 2px;
+    color: #b1b1b1;
 `
 
 const TagButton = styled.div`
