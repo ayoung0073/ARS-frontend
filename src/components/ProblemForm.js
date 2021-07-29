@@ -3,15 +3,23 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
 import { Rate, Select, Calendar } from 'antd';
-import { useState } from "react";
+import React, { useState } from "react";
 import ReactDOMServer from 'react-dom/server';
 import TagButton from "./TagButton";
 
 function ProblemForm() {
     const [tag, setTag] = useState("")
 
+    const inputTag = React.useRef(null);
+    
     const onTagHandler = (e) => {
         setTag(e.currentTarget.value) 
+    }
+
+    const onTitleKeyPress = (e) => {
+        if (e.key == 'Enter') {
+            inputTag.current.focus()
+        }
     }
 
     const onTagKeyPress = (e) => {
@@ -28,9 +36,9 @@ function ProblemForm() {
 
     return (
         <Container className="container">
-            <Title placeholder="제목을 입력하세요"></Title>
+            <Title placeholder="제목을 입력하세요" onKeyPress={onTitleKeyPress}></Title>
             <TagLine />
-            <TagInput id="tag" value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} placeholder="태그를 입력하세요"></TagInput>
+            <TagInput id="tag" ref = {inputTag} value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} placeholder="태그를 입력하세요"></TagInput>
             <TagBlock id="tag-block"></TagBlock>
             <LinkLine />
             <LinkInput placeholder="문제 링크를 입력하세요"></LinkInput>
