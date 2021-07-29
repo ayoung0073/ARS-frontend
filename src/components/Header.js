@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
 
@@ -39,7 +38,7 @@ function HeaderMain() {
                         </ul>
                         <form class="d-flex">
                             <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" type="search" placeholder="문제 검색" aria-label="Search" />
-                            <Link onClick={onClick} class="btn btn-outline-secondary" type="submit">Search</Link>
+                            <button onClick={onClick} class="btn btn-outline-secondary" type="submit">Search</button>
                         </form>
                     </div>
                 </div>
@@ -50,10 +49,6 @@ function HeaderMain() {
 
 const Container = styled.div`
     border-bottom: 1px rgb(219 221 224) solid;
-`
-
-const Sub = styled.div`
-    font-size: 12px;
 `
 
 export default HeaderMain;

@@ -12,7 +12,7 @@ const Search = (props) => {
     const [searchList, setSearchList] = useState([])
 
     const { search } = props.location;
-    const queryObj = queryString.parse(search);	
+    const queryObj = queryString.parse(search);
     const keyword = queryObj.q;
 
     const getSearchList = async () => {
@@ -24,12 +24,12 @@ const Search = (props) => {
         getSearchList();
     }, []);
 
-    return(
+    return (
         <div>
             <HeaderMain />
             <SearchList className="container">
                 {searchList.length > 0 &&
-                    searchList.map((search, index) => {
+                    searchList.map((search) => {
                         return (
                             <CardComponent>
                                 <Title>{search.title}</Title>
@@ -38,7 +38,8 @@ const Search = (props) => {
                                 <hr />
                                 <Viewer initialValue={search.content} />
                             </CardComponent>
-                    )})}
+                        )
+                    })}
             </SearchList>
         </div>
     )
@@ -76,8 +77,6 @@ const Link = styled.a`
     color: rgb(12,166,120);
     margin-left: 4px;
     font-weight: bold;
-    // color: #007bff;
-    // text-decoration: none;
 `
 
 const Step = styled(Rate)`

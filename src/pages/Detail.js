@@ -7,7 +7,6 @@ import { Rate } from 'antd';
 
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
-
 import TagButton from "../components/TagButton";
 
 const Detail = (props) => {
@@ -83,7 +82,6 @@ function ReviewList(props) {
 
 function TagList(props) {
     const tagList = props.tagList
-    console.log(tagList)
     return (
         <TagContainer>
             {tagList.length != 0 &&
