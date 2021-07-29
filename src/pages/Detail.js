@@ -155,4 +155,5 @@ const Button = styled.button`
 const ReviewBlock = styled.div`
     padding-left: 5%;    
 `
+
 export default Detail;

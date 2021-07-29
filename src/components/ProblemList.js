@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import 'antd/dist/antd.css';
 import { Link } from "react-router-dom";
+import TagList from "../components/TagList";
 
 function ProblemList(props) {
     const problemList = props.problemList
@@ -32,21 +33,6 @@ function Card(props) {
             </div>
         </div>
     )
-}
-
-function TagList(props) {
-    const tagList = props.tagList
-    return (
-        <div>
-            {tagList.length != 0 &&
-                tagList.map((o) => {
-                    return (
-                        <Link to={`/tags/name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{o.tag.tagName}</TagButton></Link>
-                    )
-                })}
-        </div>
-    )
-
 }
 
 const TagButton = styled.div`
