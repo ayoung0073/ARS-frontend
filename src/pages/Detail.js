@@ -7,6 +7,8 @@ import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
 import Step from "../components/Step"
 
+import TagButton from "../components/TagButton";
+
 const Detail = (props) => {
     const [problem, setProblem] = useState({});
     const [review, setReview] = useState({});
@@ -87,7 +89,7 @@ function TagList(props) {
             {tagList.length != 0 &&
                 tagList.map((o) => {
                     return (
-                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{o.tag.tagName}</TagButton></Link>
+                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton name={o.tag.tagName} /></Link>
                     )
                 })}
         </TagContainer>
@@ -98,24 +100,6 @@ const TagContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 0px;
     padding-bottom: 0px;
-`
-
-const TagButton = styled.div`
-    background: rgb(241, 243, 245);
-    border: white;
-    height: 2rem;
-    border-radius: 1rem;
-    display: inline-flex;
-    -webkit-box-align: center;
-    align-items: center;
-    color: rgb(12, 166, 120);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-left: 3px;
-    margin-right: 3px;
 `
 
 const Container = styled.div`

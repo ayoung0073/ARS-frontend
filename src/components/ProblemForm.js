@@ -3,21 +3,40 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
 import { Rate, Select, Calendar } from 'antd';
+import { useState } from "react";
+import ReactDOMServer from 'react-dom/server';
+import TagButton from "./TagButton";
 
 function ProblemForm() {
+    const [tag, setTag] = useState("")
+
+    const onTagHandler = (e) => {
+        setTag(e.currentTarget.value) 
+    }
+
+    const onTagKeyPress = (e) => {
+        if (e.key == 'Enter') {
+            console.log(tag)
+            let tagBlock = document.getElementById("tag-block");
+            console.log(tagBlock.innerHTML)
+            if (tag != "") {
+                tagBlock.innerHTML += ReactDOMServer.renderToString(<TagButton name={tag}></TagButton>)
+                setTag("");
+            }
+        }
+    }
 
     return (
         <Container className="container">
             <Title placeholder="제목을 입력하세요"></Title>
             <TagLine />
-            <TagInput placeholder="태그를 입력하세요"></TagInput>
-            <div id="tag-block"></div>
+            <TagInput id="tag" value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} placeholder="태그를 입력하세요"></TagInput>
+            <TagBlock id="tag-block"></TagBlock>
             <LinkLine />
             <LinkInput placeholder="문제 링크를 입력하세요"></LinkInput>
             <LinkLine />
             <Notification />
             <StepContainer><StepTitle>난이도</StepTitle><Step value="1" /></StepContainer>
-            {/* <Step value="1" /></StepContainer> */}
             <Editor
                 initialValue=""
                 previewStyle="vertical"
@@ -79,14 +98,19 @@ const TagInput = styled.input`
     cursor: text;
     font-size: 1.125rem;
     line-height: 2rem;
+    margin-bottom: 0.75rem;
+    outline: none;
     border: none;
+`
+
+const TagBlock = styled.div`
 `
 
 const LinkLine = styled.div`
     background: lightgray;
     height: 3px;
     width: 2rem;
-    margin-top: 0.7rem;
+    margin-top: 1rem;
     margin-bottom: 0.7rem;
     border-radius: 1px;
 `
