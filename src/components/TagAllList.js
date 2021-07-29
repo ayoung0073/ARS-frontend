@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import getTagListApi from '../api/get/getTagList'
 
-function TagList() {
+function TagList() { // 전체 리스트 
     const [tagList, setTagList] = useState([]);
 
     const getTagList = async () => {

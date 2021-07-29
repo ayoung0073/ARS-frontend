@@ -7,7 +7,6 @@ import { Rate } from 'antd';
 
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
-// import Step from "../components/Step"
 
 import TagButton from "../components/TagButton";
 

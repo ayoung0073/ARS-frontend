@@ -4,7 +4,7 @@ import styled from "styled-components";
 import getProblemListApi from '../api/get/getProblemList'
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
-import TagList from "../components/TagList";
+import TagList from "../components/TagAllList";
 
 const Main = () => {
     const [problemList, setProblemList] = useState([]);

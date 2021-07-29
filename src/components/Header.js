@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
-import { Layout, Menu } from 'antd';
 
 function HeaderMain() {
+
+    const [search, setSearch] = useState("")
+
+    const onChange = (e) => {
+        if (e.key == 'Enter') {
+            onClick();
+        }
+        else {
+            setSearch(e.currentTarget.value)
+        }
+    }
+
+    const onClick = () => {
+        console.log(search)
+        window.location.href = "/search?q=" + search;
+        setSearch("")
+    }
+
+    const onKeyPress = (e) => {
+        if (e.key == 'Enter') {
+            onClick();
+        }
+    }
+
     return (
         <Container>
             <nav className="navbar justify-content-center navbar-expand-lg navbar-light bg-white">
@@ -19,8 +43,8 @@ function HeaderMain() {
                             </li>
                         </ul>
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="문제 검색" aria-label="Search" />
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" type="search" placeholder="문제 검색" aria-label="Search" />
+                            <Link onClick={onClick} class="btn btn-outline-secondary" type="submit">Search</Link>
                         </form>
                     </div>
                 </div>
