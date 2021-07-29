@@ -13,6 +13,7 @@ const Detail = (props) => {
     const [problem, setProblem] = useState({});
     const [review, setReview] = useState({});
     const [reviewList, setReviewList] = useState([]);
+    const [tagList, setTagList] = useState([]);
     const problemId = props.match.params.problemId;
 
     const getProblem = async () => {
@@ -20,6 +21,7 @@ const Detail = (props) => {
         setProblem(data);
         setReviewList(data.reviewList)
         setReview(data.reviewList[0])
+        setTagList(data.tagList)
     };
 
     useEffect(() => {
@@ -46,6 +48,7 @@ const Detail = (props) => {
             <Container>
                 <Title>{problem.title}</Title>
                 <Step /> ·  알림 예정일  <b>{problem.notificationDate}</b>
+                <TagList tagList={tagList} />
                 <hr />
                 <Link href={problem.link}>문제 링크</Link>
                 <hr />
@@ -58,7 +61,6 @@ const Detail = (props) => {
 
 function ReviewList(props) {
     const reviewList = props.reviewList;
-
     return (
         <div>
             <Box className="card m-2">
@@ -99,8 +101,47 @@ function Step() {
 }
 
 
+function TagList(props) {
+    const tagList = props.tagList
+    console.log(tagList)
+    return (
+        <TagContainer>
+            {tagList.length != 0 &&
+                tagList.map((o) => {
+                    return (
+                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{o.tag.tagName}</TagButton></Link>
+                    )
+                })}
+        </TagContainer>
+    )
+}
+
+const TagContainer = styled.div`
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+`
+
+const TagButton = styled.div`
+    background: rgb(241, 243, 245);
+    border: white;
+    height: 2rem;
+    border-radius: 1rem;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(12, 166, 120);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+`
+
 const Container = styled.div`
-    margin-top: 3%;
+    margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;
 `
