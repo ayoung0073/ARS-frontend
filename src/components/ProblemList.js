@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import 'antd/dist/antd.css';
 import { Link } from "react-router-dom";
-import TagList from "../components/TagList";
 
 function ProblemList(props) {
     const problemList = props.problemList
     {
         return (
             <div className="container">
-                <br />
                 {problemList.length != 0 &&
                     problemList.map((problem) => {
                         return (
@@ -31,6 +29,21 @@ function Card(props) {
                 <br />
                 <TagList tagList={props.tagList} />
             </div>
+        </div>
+    )
+}
+
+
+function TagList(props) {
+    const tagList = props.tagList
+    return (
+        <div>
+            {tagList.length != 0 &&
+                tagList.map((o) => {
+                    return (
+                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{o.tag.tagName}</TagButton></Link>
+                    )
+                })}
         </div>
     )
 }

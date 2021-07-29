@@ -1,19 +1,44 @@
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import getTagListApi from '../api/get/getTagList'
 
-function TagList(props) {
-    const tagList = props.tagList
+function TagList() {
+    const [tagList, setTagList] = useState([]);
+
+    const getTagList = async () => {
+        const data = await getTagListApi();
+        setTagList(data);
+    };
+
+    useEffect(() => {
+        getTagList();
+    }, []);
+
     return (
-        <div>
+        <Container className="container">
+            <TagTitle>태그 목록</TagTitle>
             {tagList.length != 0 &&
-                tagList.map((o) => {
+                tagList.map((tag) => {
                     return (
-                        <Link to={`/tags/name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{o.tag.tagName}</TagButton></Link>
+                        <Link to={`/tags?name=${tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{tag.tagName}({tag.count})</TagButton></Link>
                     )
                 })}
-        </div>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    margin-top: 2%;
+    margin-bottom: 0.5%;
+`
+
+const TagTitle = styled.div`
+    text-decoration: underline;
+    color: grey;
+    margin-left: 1%;
+    margin-bottom: 1%;
+`
 
 const TagButton = styled.div`
     margin-bottom: 0.875rem;
@@ -24,7 +49,7 @@ const TagButton = styled.div`
     display: inline-flex;
     -webkit-box-align: center;
     align-items: center;
-    color: rgb(12, 166, 120);
+    color: grey;
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import getProblemListApi from '../api/get/getProblemList'
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
+import TagList from "../components/TagList";
+
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
 
@@ -20,6 +22,7 @@ const Main = () => {
     return (
         <div>
             <HeaderMain />
+            <TagList />
             <ProblemList problemList={problemList} />
         </div>
     );
