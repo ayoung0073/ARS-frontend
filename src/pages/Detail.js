@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import '@toast-ui/editor/dist/toastui-editor.css';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import 'antd/dist/antd.css';
+import { Rate } from 'antd';
 
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
-import Step from "../components/Step"
+// import Step from "../components/Step"
 
 import TagButton from "../components/TagButton";
 
@@ -47,10 +49,9 @@ const Detail = (props) => {
             <HeaderMain />
             <Container>
                 <Title>{problem.title}</Title>
-                <Step /> ·  알림 예정일  <b>{problem.notificationDate}</b>
+                <Step value={problem.step} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
+                · <Link href={problem.link}>문제 링크</Link>
                 <TagList tagList={tagList} />
-                <hr />
-                <Link href={problem.link}>문제 링크</Link>
                 <hr />
                 <div id="viewer"></div>
             </Container>
@@ -97,8 +98,8 @@ function TagList(props) {
 }
 
 const TagContainer = styled.div`
-    margin-top: 10px;
-    margin-bottom: 0px;
+    margin-top: 15px;
+    margin-bottom: 3px;
     padding-bottom: 0px;
 `
 
@@ -124,9 +125,21 @@ const Title = styled.div`
 `
 
 const Link = styled.a`
-    color: #007bff;
-    text-decoration: none;
-    background-color: transparent;
+    color: rgb(12,166,120);
+    margin-left: 4px;
+    font-weight: bold;
+    // color: #007bff;
+    // text-decoration: none;
+`
+
+const Step = styled(Rate)`
+    font-size: 25px;
+    margin-right: 4px;
+`
+
+const Notification = styled.span`
+    margin-left: 4px;
+    margin-right: 6px;
 `
 
 const Box = styled.div`
