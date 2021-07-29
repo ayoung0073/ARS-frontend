@@ -5,9 +5,7 @@ import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
-
-import selectedStar from '../images/star_selected.png';
-import notSelectedStar from '../images/star_not_selected.png';
+import Step from "../components/Step"
 
 const Detail = (props) => {
     const [problem, setProblem] = useState({});
@@ -81,26 +79,6 @@ function ReviewList(props) {
 
 }
 
-function Step() {
-    function selectStar(step) {
-        console.log(step)
-        let num = 1;
-        const result = [];
-        for (num = 1; num <= step; num++)
-            document.getElementById("star" + num).src = selectedStar;
-        for (num = step + 1; num <= 5; num++)
-            document.getElementById("star" + num).src = notSelectedStar;
-        return result;
-    };
-
-    return (
-        <span>
-            <Star id="star1" src={selectedStar} onClick={() => selectStar(1)} /><Star id="star2" src={notSelectedStar} onClick={() => selectStar(2)} /><Star id="star3" src={notSelectedStar} onClick={() => selectStar(3)} /><Star id="star4" src={notSelectedStar} onClick={() => selectStar(4)} /><Star id="star5" src={notSelectedStar} onClick={() => selectStar(5)} />
-        </span>
-    )
-}
-
-
 function TagList(props) {
     const tagList = props.tagList
     console.log(tagList)
@@ -159,11 +137,6 @@ const Title = styled.div`
     border: none;
     font-weight: bold;
     color: rgb(33, 37, 41);
-`
-
-const Star = styled.img`
-    padding-bottom: 3px;
-    width: 30px;
 `
 
 const Link = styled.a`
