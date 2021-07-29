@@ -6,6 +6,7 @@ import {
 
 import Main from "./pages/Main"
 import Detail from "./pages/Detail"
+import TagMain from "./pages/TagMain"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/problems/:problemId" component={Detail} />
+          <Route exact path="/tags" component={TagMain} />
         </Switch>
       </div>
     </Router>

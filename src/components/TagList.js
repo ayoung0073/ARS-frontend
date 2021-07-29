@@ -15,13 +15,17 @@ function TagList() {
         getTagList();
     }, []);
 
+    const buttonClick = async (tagName) => {
+        window.location.href = "/tags?name=" + tagName
+    }
+
     return (
         <Container className="container">
             <TagTitle>태그 목록</TagTitle>
             {tagList.length != 0 &&
                 tagList.map((tag) => {
                     return (
-                        <Link to={`/tags?name=${tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton>{tag.tagName}({tag.count})</TagButton></Link>
+                        <Link onClick={() => buttonClick(tag.tagName)} style={{ textDecoration: 'none' }}><TagButton>{tag.tagName}({tag.count})</TagButton></Link>
                     )
                 })}
         </Container>
@@ -55,8 +59,8 @@ const TagButton = styled.div`
     font-size: 1rem;
     padding-right: 10px;
     padding-left: 10px;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
 `
 
 export default TagList;
