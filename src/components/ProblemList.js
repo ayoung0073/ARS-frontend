@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import 'antd/dist/antd.css';
 import { Link } from "react-router-dom";
 
 import TagButton from "./TagButton";

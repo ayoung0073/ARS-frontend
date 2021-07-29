@@ -56,7 +56,6 @@ const TagButton = styled.div`
     height: 2rem;
     border-radius: 1rem;
     display: inline-flex;
-    -webkit-box-align: center;
     align-items: center;
     color: grey;
     text-decoration: none;

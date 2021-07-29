@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import styled from "styled-components";
+
 import getProblemListApi from '../api/get/getProblemList'
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
 import TagList from "../components/TagList";
-
-import 'antd/dist/antd.css';
-import { Layout, Menu } from 'antd';
 
 const Main = () => {
     const [problemList, setProblemList] = useState([]);
@@ -22,10 +21,16 @@ const Main = () => {
     return (
         <div>
             <HeaderMain />
-            <TagList />
-            <ProblemList problemList={problemList} />
+            <Container className="container">
+                <TagList />
+                <ProblemList problemList={problemList} />
+            </Container>
         </div>
     );
 }
+
+const Container = styled.div`
+    max-width: 1200px;
+`
 
 export default Main;
