@@ -6,9 +6,9 @@ const clientId = base.client_id;
 
 export default function GoogleLoginBtn(props) {
     console.log(props)
-    const onSuccess = async (response) => {
+    const onSuccess = (response) => {
         console.log(response)
-        await googleLogin(response.accessToken);
+        googleLogin(response.accessToken);
         window.location.href = props.href
     }
 
