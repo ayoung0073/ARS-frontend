@@ -5,6 +5,10 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
 import { Rate, Select, Calendar } from 'antd';
+import { GoogleLogin } from "react-google-login";
+import GoogleLoginBtn from "../components/GoogleLogin"
+import Main from "../pages/Main"
+// import googleLogin from "../api/post/googleLogin";
 
 import TagButton from "./TagButton";
 import registerProblem from "../api/post/registerProblem"
@@ -77,31 +81,32 @@ function ProblemForm() {
         )
     }
 
+    const returnHtml = <Container className="container">
+        <Title value={title} onChange={onTitleHandler} onKeyPress={onTitleKeyPress} placeholder="제목을 입력하세요"></Title>
+        <TagLine />
+        <TagInput value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} id="tag" ref={inputTag} placeholder="태그를 입력하세요"></TagInput>
+        <TagBlock id="tag-block"></TagBlock>
+        <LinkLine />
+        <LinkInput value={link} onChange={onLinkHandler} placeholder="문제 링크를 입력하세요"></LinkInput>
+        <LinkLine />
+        <Notification value={notificationDate} />
+        <StepContainer><StepTitle>난이도</StepTitle><Step onChange={onStepHandler} /></StepContainer>
+        <Editor
+            initialValue=""
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="markdown"
+            useCommandShortcut={true}
+            ref={editorRef}
+        />
+        <Button onClick={onSumbitHandler} className="btn btn-dark">등록하기</Button>
+    </Container>;
+
+
     return (
-        <Container className="container">
-            <Title value={title} onChange={onTitleHandler} onKeyPress={onTitleKeyPress} placeholder="제목을 입력하세요"></Title>
-            <TagLine />
-            <TagInput value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} id="tag" ref={inputTag} placeholder="태그를 입력하세요"></TagInput>
-            <TagBlock id="tag-block"></TagBlock>
-            <LinkLine />
-            <LinkInput value={link} onChange={onLinkHandler} placeholder="문제 링크를 입력하세요"></LinkInput>
-            <LinkLine />
-            <Notification value={notificationDate} />
-            <StepContainer><StepTitle>난이도</StepTitle><Step onChange={onStepHandler} /></StepContainer>
-            <Editor
-                initialValue=""
-                previewStyle="vertical"
-                height="600px"
-                initialEditType="markdown"
-                useCommandShortcut={true}
-                ref={editorRef}
-            />
-            <Button onClick={onSumbitHandler} className="btn btn-dark">등록하기</Button>
-        </Container>
+        <>{returnHtml}</>
     )
-
 }
-
 
 const CustomSelect = styled(Select)`
     float: right;

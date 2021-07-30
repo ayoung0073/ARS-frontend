@@ -5,6 +5,7 @@ const base = require('../base.json')
 const clientId = base.client_id;
 
 export default function GoogleLoginBtn(props) {
+    console.log(props)
     const onSuccess = async (response) => {
         console.log(response)
         await googleLogin(response.accessToken);
@@ -13,6 +14,8 @@ export default function GoogleLoginBtn(props) {
 
     const onFailure = (error) => {
         console.log(error);
+        alert("Login Fail");
+        window.location.href = "/";
     }
 
     return (

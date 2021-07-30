@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
+import GoogleLoginBtn from "../components/GoogleLogin"
 
 function HeaderMain() {
 
@@ -22,6 +23,17 @@ function HeaderMain() {
         }
     }
 
+    const check = () => {
+        var name = "Login";
+        var option = "width = 550, height = 550, top = 100, left = 400, location = no"
+        if (sessionStorage.getItem("access_token") === null) {
+            window.open("/login", name, option)
+        }
+        else {
+            window.location.href = "/write";
+        }
+    }
+
     return (
         <>
             <Container>
@@ -30,9 +42,11 @@ function HeaderMain() {
                         <a className="navbar-brand" href="/"><b>ARS</b></a>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <a className="nav-link active" href="/write">문제 등록</a>
-                                </li>
+                                {sessionStorage.getItem("access_token") !== null &&
+                                    <li className="nav-item">
+                                        <a className="nav-link active" onClick={check}>문제 등록</a>
+                                    </li>
+                                }
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">난이도별</a>
                                 </li>
@@ -58,7 +72,7 @@ function LoginCheck() {
         )
     }
     else {
-        return (<></>)
+        return (<Welcome><GoogleLoginBtn href="/" /></Welcome>)
     }
 }
 
