@@ -7,7 +7,7 @@ function ProblemList(props) {
     const problemList = props.problemList
     {
         return (
-            <div className="container">
+            <Container className="container">
                 {problemList.length != 0 &&
                     problemList.map((problem) => {
                         return (
@@ -16,7 +16,7 @@ function ProblemList(props) {
                             </CardComponent>
                         )
                     })}
-            </div>
+            </Container>
         )
     }
 }
@@ -48,6 +48,10 @@ function TagList(props) {
         </div>
     )
 }
+
+const Container = styled.div`
+    item-align: center;
+`
 
 const Step = styled.div`
     float: right;

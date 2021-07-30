@@ -24,7 +24,7 @@ const Main = () => {
             <HeaderMain />
             <LoginCheck />
             <Container className="container">
-                <TagList />
+                <TagList name="전체" />
                 <ProblemList problemList={problemList} />
             </Container>
         </div>
