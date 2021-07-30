@@ -24,15 +24,16 @@ const Search = (props) => {
         getSearchList();
     }, []);
 
-    return (
-        <div>
-            <HeaderMain />
-            <SearchList className="container">
-                {searchList.length > 0 &&
-                    searchList.map((search) => {
+    if (searchList.length > 0) {
+        return (
+            <div>
+                <HeaderMain />
+                <SearchContent count={searchList.length} keyword={keyword} />
+                <SearchList className="container">
+                    {searchList.map((search) => {
                         return (
                             <CardComponent>
-                                <Title>{search.title}</Title>
+                                <Link href={`/problems/${search.id}`} style={{ textDecoration: 'none' }}><Title>{search.title}</Title></Link>
                                 <Step value={search.step} />
                                 · <Link href={search.link}>문제 링크</Link>
                                 <hr />
@@ -40,10 +41,45 @@ const Search = (props) => {
                             </CardComponent>
                         )
                     })}
-            </SearchList>
-        </div>
+                </SearchList>
+            </div>
+        )
+    }
+    else {
+        return (
+            <>
+                <HeaderMain />
+                <SearchBar className="container">
+                    <SearchTitle><b>"{keyword}"</b> 검색 결과입니다.</SearchTitle>
+                    <SearchSub>검색 결과가 없습니다.</SearchSub>
+                </SearchBar>
+            </>
+        )
+    }
+}
+
+function SearchContent(props) {
+    return (
+        <SearchBar className="container">
+            <SearchTitle><b>"{props.keyword}"</b> 검색 결과입니다.</SearchTitle>
+            <SearchSub>총 <b>{props.count}</b>개의 포스트를 찾았습니다.</SearchSub>
+        </SearchBar>
     )
 }
+const SearchBar = styled.div`
+    margin-top: 3%;
+    max-width: 1200px;
+`
+
+const SearchTitle = styled.div`
+    font-size: 35px;
+`
+
+const SearchSub = styled.div`
+    padding: 10px;
+    font-size: 18px;
+    color: grey;
+`
 
 const SearchList = styled.div`
     max-width: 1200px;
@@ -52,7 +88,7 @@ const SearchList = styled.div`
 const CardComponent = styled.div`
     border: solid 1px lightgrey;
     border-radius: 10px;
-    margin-top: 45px;
+    margin-top: 30px;
     padding: 3% 6%;
 `
 

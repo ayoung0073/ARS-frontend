@@ -42,7 +42,7 @@ function TagList(props) {
             {tagList.length != 0 &&
                 tagList.map((o) => {
                     return (
-                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton name={o.tag.tagName}/></Link>
+                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton name={o.tag.tagName} /></Link>
                     )
                 })}
         </div>

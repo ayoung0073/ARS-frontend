@@ -149,10 +149,8 @@ const Box = styled.div`
     color: rgb(134, 142, 150);
     line-height: 1.5;
     font-size: 0.875rem;
-    max-height: calc(100vh - 128px);
-    overflow: hidden auto;
     position: fixed;
-    top: 30%;
+    top: 200px;
     right: 0px;
 `
 
