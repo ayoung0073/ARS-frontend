@@ -52,7 +52,7 @@ const SearchList = styled.div`
 const CardComponent = styled.div`
     border: solid 1px lightgrey;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 45px;
     padding: 3% 6%;
 `
 

@@ -1,11 +1,13 @@
+import React, { useState } from "react";
+import ReactDOMServer from 'react-dom/server';
 import styled from "styled-components";
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
 import { Rate, Select, Calendar } from 'antd';
-import React, { useState } from "react";
-import ReactDOMServer from 'react-dom/server';
+
 import TagButton from "./TagButton";
+import registerProblem from "../api/post/registerProblem"
 
 function ProblemForm() {
     const inputTag = React.useRef(null);
@@ -46,6 +48,15 @@ function ProblemForm() {
     const onSumbitHandler = () => {
         const editorInstance = editorRef.current.getInstance();
         console.log(editorInstance.getMarkdown())
+        const body = {
+            title: title,
+            link: link,
+            step: step,
+            notificationDate: notificationDate,
+            tagList: tagList,
+            content: editorInstance.getMarkdown()
+        }
+        registerProblem(body)
     }
 
     const addTag = (tag) => {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const base = require('../../base')
 
-export const googleLogin = async (accessToken) => {
+const googleLogin = async (accessToken) => {
     const url =
         base.url + '/api/members/google';
 
