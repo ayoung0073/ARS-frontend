@@ -9,6 +9,7 @@ import Detail from "./pages/Detail"
 import TagMain from "./pages/TagMain"
 import ProblemRegister from "./pages/ProblemRegister"
 import Search from "./pages/Search"
+import Login from "./pages/Login"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/search" component={Search} />
 
           <Route exact path="/write" component={ProblemRegister} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </div>
     </Router>
