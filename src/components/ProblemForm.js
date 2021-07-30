@@ -8,13 +8,22 @@ import ReactDOMServer from 'react-dom/server';
 import TagButton from "./TagButton";
 
 function ProblemForm() {
+    const inputTag = React.useRef(null);
+    const editorRef = React.useRef();
+
     const [tag, setTag] = useState("")
 
-    const inputTag = React.useRef(null);
-    
-    const onTagHandler = (e) => {
-        setTag(e.currentTarget.value) 
-    }
+    const [title, setTitle] = useState("");
+    const [step, setStep] = useState(1);
+    const [link, setLink] = useState("");
+    const [tagList, setTagList] = useState([])
+    const [notificationDate, setNotificationDate] = useState("1");
+
+    const onTagHandler = (e) => { setTag(e.currentTarget.value) }
+    const onTitleHandler = (e) => { setTitle(e.currentTarget.value) }
+    const onLinkHandler = (e) => { setLink(e.currentTarget.value) }
+    const onStepHandler = (e) => { setStep(e) }
+    const onNotificationHandler = (e) => { setNotificationDate(e) }
 
     const onTitleKeyPress = (e) => {
         if (e.key == 'Enter') {
@@ -26,49 +35,62 @@ function ProblemForm() {
         if (e.key == 'Enter') {
             console.log(tag)
             let tagBlock = document.getElementById("tag-block");
-            console.log(tagBlock.innerHTML)
             if (tag != "") {
                 tagBlock.innerHTML += ReactDOMServer.renderToString(<TagButton name={tag}></TagButton>)
+                addTag(tag)
                 setTag("");
             }
         }
     }
 
+    const onSumbitHandler = () => {
+        const editorInstance = editorRef.current.getInstance();
+        console.log(editorInstance.getMarkdown())
+    }
+
+    const addTag = (tag) => {
+        const result = tagList.concat(tag);
+        setTagList(result);
+    }
+
+    function Notification() {
+        return (
+            <CustomSelect onChange={onNotificationHandler} defaultValue={notificationDate}>
+                <option value="0" selected>알림 기한 설정</option>
+                <option value="5">일주일 후 알림</option>
+                <option value="4">이주일 후 알림</option>
+                <option value="3">한 달 후 알림</option>
+                <option value="2">두 달 후 알림</option>
+                <option value="1">세 달 후 알림</option>
+            </CustomSelect>
+        )
+    }
+
     return (
         <Container className="container">
-            <Title placeholder="제목을 입력하세요" onKeyPress={onTitleKeyPress}></Title>
+            <Title value={title} onChange={onTitleHandler} onKeyPress={onTitleKeyPress} placeholder="제목을 입력하세요"></Title>
             <TagLine />
-            <TagInput id="tag" ref = {inputTag} value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} placeholder="태그를 입력하세요"></TagInput>
+            <TagInput value={tag} onChange={onTagHandler} onKeyPress={onTagKeyPress} id="tag" ref={inputTag} placeholder="태그를 입력하세요"></TagInput>
             <TagBlock id="tag-block"></TagBlock>
             <LinkLine />
-            <LinkInput placeholder="문제 링크를 입력하세요"></LinkInput>
+            <LinkInput value={link} onChange={onLinkHandler} placeholder="문제 링크를 입력하세요"></LinkInput>
             <LinkLine />
-            <Notification />
-            <StepContainer><StepTitle>난이도</StepTitle><Step value="1" /></StepContainer>
+            <Notification value={notificationDate} />
+            <StepContainer><StepTitle>난이도</StepTitle><Step onChange={onStepHandler} /></StepContainer>
             <Editor
                 initialValue=""
                 previewStyle="vertical"
                 height="600px"
                 initialEditType="markdown"
                 useCommandShortcut={true}
+                ref={editorRef}
             />
-            <Button className="btn btn-dark">등록하기</Button>
+            <Button onClick={onSumbitHandler} className="btn btn-dark">등록하기</Button>
         </Container>
     )
+
 }
 
-function Notification() {
-    return (
-        <CustomSelect defaultValue="0">
-            <option value="0" selected>알림 기한 설정</option>
-            <option value="5">일주일 후 알림</option>
-            <option value="4">이주일 후 알림</option>
-            <option value="3">한 달 후 알림</option>
-            <option value="2">두 달 후 알림</option>
-            <option value="1">세 달 후 알림</option>
-        </CustomSelect>
-    )
-}
 
 const CustomSelect = styled(Select)`
     float: right;
