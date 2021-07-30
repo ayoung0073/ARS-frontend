@@ -64,8 +64,11 @@ function ReviewList(props) {
     return (
         <div>
             <Box className="card m-2">
-                {sessionStorage.getItem("access_token") !== null && checkMember() &&
-                    <Button className="btn-secondary btn">Add Review</Button>
+                {sessionStorage.getItem("access_token") === null
+                    ? null : (checkMember() === true ?
+                        <Button className="btn-secondary btn">Add Review</Button>
+                        : null
+                    )
                 }
                 <ReviewBlock>
                     {reviewList.length > 0 &&
