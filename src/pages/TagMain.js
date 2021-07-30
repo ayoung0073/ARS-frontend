@@ -28,7 +28,7 @@ const TagMain = (props) => {
         <div>
             <HeaderMain />
             <Container className="container">
-                <TagList />
+                <TagList name={tagName} />
                 <ProblemList problemList={problemList} />
             </Container>
         </div>
