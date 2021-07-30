@@ -9,12 +9,15 @@ import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
 import TagButton from "../components/TagButton";
 import checkMember from "../api/get/checkMember";
+import updateStepApi from "../api/put/updateStep";
 
 const Detail = (props) => {
     const [problem, setProblem] = useState({});
     const [review, setReview] = useState({});
     const [reviewList, setReviewList] = useState([]);
     const [tagList, setTagList] = useState([]);
+    const [step, setStep] = useState(1);
+
     const problemId = props.match.params.problemId;
 
     const getProblem = async () => {
@@ -23,6 +26,7 @@ const Detail = (props) => {
         setReviewList(data.reviewList)
         setReview(data.reviewList[0])
         setTagList(data.tagList)
+        setStep(data.step)
     };
 
     useEffect(() => {
@@ -43,12 +47,23 @@ const Detail = (props) => {
         });
     }
 
+    const onStepChange = async (e) => {
+        if (await checkMember() == true) {
+            console.log("인증 성공")
+            updateStepApi(problem.id, e)
+            setStep(e)
+        }
+        else {
+            console.log("인증 실패")
+        }
+    }
+
     return (
         <div>
             <HeaderMain />
             <Container>
                 <Title>{problem.title}</Title>
-                <Step value={problem.step} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
+                <Step allowClear="true" value={step} onChange={onStepChange} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
                 · <Link href={problem.link}>문제 링크</Link>
                 <TagList tagList={tagList} />
                 <hr />

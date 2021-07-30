@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const base = require('../../base')
 
-export function checkMember() {
+export const checkMember = async () => {
     const url =
         base.url + '/api/members/check';
 
@@ -15,7 +15,7 @@ export function checkMember() {
     }
 
     try {
-        const response = axios(option);
+        const response = await axios(option);
         console.log('[SUCCESS] GET ', response);
         if (response.data.status !== 200) {
             return false;

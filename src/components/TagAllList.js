@@ -59,7 +59,6 @@ function TagList(props) { // 전체 리스트
 const Container = styled.div`
     margin-top: 3%;
     margin-bottom: 0.5%;
-    
 `
 
 const AllTag = styled.span`
@@ -114,7 +113,7 @@ const TagClickButton = styled.div`
     color: rgb(241, 243, 245);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.92rem;
+    font-size: 0.92, /ㅡ .rem;
     padding-right: 10px;
     padding-left: 10px;
     margin-left: 5px;
