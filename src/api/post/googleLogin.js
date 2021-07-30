@@ -15,9 +15,16 @@ const googleLogin = async (accessToken) => {
     try {
         const response = await axios(option);
         console.log('[SUCCESS] POST ', response);
-        sessionStorage.setItem("nickname", response.data.data.nickname)
-        sessionStorage.setItem("access_token", response.data.data.access_token)
-        return response.data.data;
+        if (response.data.status === 200) {
+            console.log('로그인 성공')
+            sessionStorage.setItem("nickname", response.data.data.nickname)
+            sessionStorage.setItem("access_token", response.data.data.access_token)
+            window.location.href = '/'
+        }
+        else {
+            console.log('로그인 실패')
+            window.location.href = '/'
+        }
     } catch (e) {
         console.log('[FAIL] POST ', e);
         return null;

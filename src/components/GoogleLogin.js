@@ -9,7 +9,6 @@ export default function GoogleLoginBtn(props) {
     const onSuccess = (response) => {
         console.log(response)
         googleLogin(response.accessToken);
-        window.location.href = props.href
     }
 
     const onFailure = (error) => {
