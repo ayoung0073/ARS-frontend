@@ -14,7 +14,6 @@ export default function GoogleLoginBtn(props) {
 
     const onFailure = (error) => {
         console.log(error);
-        alert("Login Fail");
         window.location.href = "/";
     }
 

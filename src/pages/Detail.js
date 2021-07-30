@@ -8,6 +8,7 @@ import { Rate } from 'antd';
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
 import TagButton from "../components/TagButton";
+import checkMember from "../api/get/checkMember";
 
 const Detail = (props) => {
     const [problem, setProblem] = useState({});
@@ -63,17 +64,19 @@ function ReviewList(props) {
     return (
         <div>
             <Box className="card m-2">
-                <Button className="btn-secondary btn">Add Review</Button>
-                {reviewList.length > 0 &&
-                    reviewList.map((review, index) => {
-                        return (
-                            <div>
-                                <ReviewBlock>
+                {sessionStorage.getItem("access_token") !== null && checkMember() &&
+                    <Button className="btn-secondary btn">Add Review</Button>
+                }
+                <ReviewBlock>
+                    {reviewList.length > 0 &&
+                        reviewList.map((review, index) => {
+                            return (
+                                <div>
                                     <a onClick={() => props.onClick(index)}>{index + 1}. {review.createdDate.substr(0, 10)}</a>
-                                </ReviewBlock>
-                            </div>
-                        )
-                    })}
+                                </div>
+                            )
+                        })}
+                </ReviewBlock>
             </Box>
         </div>
     )

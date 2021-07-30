@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
 
-import GoogleLoginBtn from "../components/GoogleLogin"
 import checkMember from "../api/get/checkMember";
 
 function HeaderMain() {
@@ -73,9 +72,7 @@ function LoginCheck() {
             <Welcome><b>{sessionStorage.getItem("nickname")}</b>님 환영합니다!</Welcome>
         )
     }
-    else {
-        return (<Welcome><GoogleLoginBtn href="/" /></Welcome>)
-    }
+    return (<></>)
 }
 
 const Container = styled.div`
