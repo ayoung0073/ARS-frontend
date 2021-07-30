@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
+
 import GoogleLoginBtn from "../components/GoogleLogin"
+import checkMember from "../api/get/checkMember";
 
 function HeaderMain() {
 
@@ -42,7 +44,7 @@ function HeaderMain() {
                         <a className="navbar-brand" href="/"><b>ARS</b></a>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                {sessionStorage.getItem("access_token") !== null &&
+                                {sessionStorage.getItem("access_token") !== null && checkMember() &&
                                     <li className="nav-item">
                                         <a className="nav-link active" onClick={check}>문제 등록</a>
                                     </li>
