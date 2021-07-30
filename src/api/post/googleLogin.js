@@ -7,13 +7,16 @@ export const googleLogin = async (accessToken) => {
         base.url + '/api/members/google';
 
     const option = {
-        url : url,
-        method : 'POST',
-        data: {"accessToken": accessToken}
+        url: url,
+        method: 'POST',
+        data: { "accessToken": accessToken }
     }
+
     try {
         const response = await axios(option);
         console.log('[SUCCESS] POST ', response);
+        sessionStorage.setItem("nickname", response.data.data.nickname)
+        sessionStorage.setItem("access_token", response.data.data.access_token)
         return response.data.data;
     } catch (e) {
         console.log('[FAIL] POST ', e);

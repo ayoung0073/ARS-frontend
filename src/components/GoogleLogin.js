@@ -4,10 +4,11 @@ import googleLogin from "../api/post/googleLogin";
 const base = require('../base.json')
 const clientId = base.client_id;
 
-export default function GoogleLoginBtn() {
+export default function GoogleLoginBtn(props) {
     const onSuccess = async (response) => {
         console.log(response)
         await googleLogin(response.accessToken);
+        window.location.href = props.href
     }
 
     const onFailure = (error) => {
