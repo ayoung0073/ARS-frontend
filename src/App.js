@@ -10,6 +10,7 @@ import TagMain from "./pages/TagMain"
 import ProblemRegister from "./pages/ProblemRegister"
 import Search from "./pages/Search"
 import Login from "./pages/Login"
+import ReviewRegister from "./pages/ReviewRegister"
 
 function App() {
   return (
@@ -21,8 +22,9 @@ function App() {
           <Route exact path="/tags" component={TagMain} />
           <Route exact path="/search" component={Search} />
 
-          <Route exact path="/write" component={ProblemRegister} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/write" component={ProblemRegister} />
+          <Route exact path="/problems/:problemId/review" component={ReviewRegister} />
         </Switch>
       </div>
     </Router>

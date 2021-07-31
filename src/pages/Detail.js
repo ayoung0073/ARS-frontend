@@ -4,6 +4,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import 'antd/dist/antd.css';
 import { Rate } from 'antd';
+import { Link } from "react-router-dom";
 
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
@@ -69,21 +70,29 @@ const Detail = (props) => {
                 <hr />
                 <div id="viewer"></div>
             </Container>
-            <ReviewList onClick={onClick} reviewList={reviewList} />
+            <ReviewList onClick={onClick} problemId={problemId} title={problem.title} reviewList={reviewList} />
         </div>
     );
 }
 
 function ReviewList(props) {
+
     const reviewList = props.reviewList;
     return (
         <div>
             <Box className="card m-2">
-                {sessionStorage.getItem("access_token") === null
-                    ? null : (checkMember() === true ?
-                        <Button className="btn-secondary btn">Add Review</Button>
-                        : null
-                    )
+                {sessionStorage.getItem("access_token") !== null
+                    ? <Link to={{
+                        pathname: "/problems/" + props.problemId + "/review",
+                        state: { title: props.title }
+                      }} 
+                            style={{ 
+                                    color: "white" ,
+                                    // fontWeight: "bold",
+                                    width: "90%",
+                                    marginBottom: "8%"
+                            }} className="btn-secondary btn">Add Review</Link>
+                    : <Button readonly className="btn-secondary btn">리뷰 목록</Button>
                 }
                 <ReviewBlock>
                     {reviewList.length > 0 &&
@@ -143,13 +152,14 @@ const Title = styled.div`
     color: rgb(33, 37, 41);
 `
 
-const Link = styled.a`
-    color: rgb(12,166,120);
-    margin-left: 4px;
-    font-weight: bold;
-    // color: #007bff;
-    // text-decoration: none;
-`
+// const Link = styled.a`
+//     margin-left: 4px;
+//     font-weight: bold;
+//     width: 85%;
+//     margin-bottom: 8%;
+//     // color: #007bff;
+//     // text-decoration: none;
+// `
 
 const Step = styled(Rate)`
     font-size: 25px;

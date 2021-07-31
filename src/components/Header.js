@@ -43,13 +43,11 @@ function HeaderMain() {
                         <a className="navbar-brand" href="/"><b>ARS</b></a>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                {sessionStorage.getItem("access_token") === null
-                                    ? null : (checkMember() === true ?
-                                        <li className="nav-item">
-                                            <a className="nav-link active" onClick={check}>문제 등록</a>
-                                        </li>
-                                        : null
-                                    )
+                                {sessionStorage.getItem("access_token") !== null
+                                    ? <li className="nav-item">
+                                        <a className="nav-link active" onClick={check}>문제 등록</a>
+                                    </li>
+                                    : null
                                 }
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">난이도별</a>
