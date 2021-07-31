@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
 
-import checkMember from "../api/get/checkMember";
-
 function HeaderMain() {
 
     const [search, setSearch] = useState("")
@@ -54,7 +52,7 @@ function HeaderMain() {
                                 </li>
                             </ul>
                             <form class="d-flex">
-                                <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" type="search" placeholder="문제 검색" aria-label="Search" />
+                                <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" style={{ width: "230px"}} type="search" placeholder="키워드 검색" aria-label="Search" />
                                 <button onClick={onClick} class="btn btn-outline-secondary" type="submit">Search</button>
                             </form>
                         </div>

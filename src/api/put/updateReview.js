@@ -1,12 +1,12 @@
 import axios from 'axios';
+import dateSetting from '../dateSetting';
 
 const base = require('../../utils/base')
 
-export const updateReviewApi = async (idx, step) => {
+export const updateReviewApi = async (props) => {
     const url =
-        base.url + '/api/problems/' + idx + '/step';
+        base.url + '/api/problems/' + props.problemId + '/reviews/' + props.reviewId;
 
-    console.log(idx, step)
     const option = {
         url: url,
         method: 'PUT',
@@ -14,13 +14,15 @@ export const updateReviewApi = async (idx, step) => {
             "Authorization": sessionStorage.getItem("access_token")
         },
         data: {
-            step: step
+            notificationDate: dateSetting(props.notificationDate),
+            content: props.content
         }
     }
 
     try {
         const response = await axios(option);
         console.log('[SUCCESS] PUT ', response);
+        window.location.href = "/problems/" + props.problemId; 
     } catch (e) {
         console.log('[FAIL] PUT ', e);
         return null;

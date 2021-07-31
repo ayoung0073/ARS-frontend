@@ -78,7 +78,7 @@ const Detail = (props) => {
                     · <LinkStyle href={problem.link}>문제 링크</LinkStyle>
                 </Line>
                 <TagList tagList={tagList} />
-                <ButtonContainer onDelete={onDelete} />
+                <ButtonContainer onDelete={onDelete} review={review} problem={problem} />
                 <hr />
                 <div id="viewer"></div>
             </Container>
@@ -88,19 +88,17 @@ const Detail = (props) => {
 }
 
 function ReviewList(props) {
-
     const reviewList = props.reviewList;
     return (
         <div>
             <Box className="card m-2">
                 {sessionStorage.getItem("access_token") !== null
                     ? <Link to={{
-                        pathname: "/problems/" + props.problemId + "/review",
+                        pathname: "/problems/" + props.problemId + "/reviews/write",
                         state: { title: props.title }
                     }}
                         style={{
                             color: "white",
-                            // fontWeight: "bold",
                             width: "90%",
                             marginBottom: "8%"
                         }} className="btn-secondary btn">Add Review</Link>
@@ -136,31 +134,32 @@ function TagList(props) {
     )
 }
 
-// const useConfirm = (message = null, onConfirm, onCancel) => {
-//     if (!onConfirm || typeof onConfirm !== "function") {
-//       return;
-//     }
-//     if (onCancel && typeof onCancel !== "function") {
-//       return;
-//     }
-
-//     const confirmAction = () => {
-//       if (window.confirm(message)) {
-//         onConfirm();
-//       } else {
-//         onCancel();
-//       }
-//     };
-
-//     return confirmAction;
-//   };
-
 function ButtonContainer(props) {
     if (sessionStorage.getItem("access_token") !== null) {
         return (
             <>
-                <FixButton onClick={() => props.onDelete()}>삭제</FixButton>
-                <FixButton>수정</FixButton>
+                <Link onClick={() => props.onDelete()} style={{
+                    background: "white",
+                    color: "darkgrey",
+                    border: "none",
+                    float: "right",
+                    textDecoration: "none",
+                    marginLeft: "1%"
+                }}>
+                    삭제
+                </Link>
+                <Link to={{
+                    pathname: "/reviews/update",
+                    state: { title: props.problem.title, notificationDate: props.problem.notificationDate, problemId: props.problem.id, content: props.review.content, reviewId: props.review.id }
+                }} style={{
+                    background: "white",
+                    color: "darkgrey",
+                    border: "none",
+                    float: "right",
+                    textDecoration: "none"
+                }}>
+                    수정
+                </Link>
             </>
         )
     }
@@ -234,13 +233,6 @@ const Box = styled.div`
 const Button = styled.button`
     width: 85%;
     margin-bottom: 8%;
-`
-
-const FixButton = styled.button`
-    background-color: white;
-    color: darkgrey;
-    border: none;
-    float: right;
 `
 
 const ReviewBlock = styled.div`

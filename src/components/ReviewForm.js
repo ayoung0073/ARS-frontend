@@ -5,14 +5,12 @@ import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
 import { Select, Calendar } from 'antd';
 
-import registerReview from "../api/post/registerReview"
-
 function ReviewForm(props) {
     const editorRef = React.useRef();
 
     const problemId = props.problemId;
     const title = props.title;
-    const [notificationDate, setNotificationDate] = useState("0")
+    const [notificationDate, setNotificationDate] = useState(props.notificationDate)
 
     const onNotificationHandler = (e) => { setNotificationDate(e) }
 
@@ -24,7 +22,8 @@ function ReviewForm(props) {
             notificationDate: notificationDate,
             content: editorInstance.getMarkdown()
         }
-        registerReview(data)
+        console.log(data);
+        props.onSumbitHandler(data)
     }
 
     function Notification() {
@@ -47,7 +46,7 @@ function ReviewForm(props) {
             <Notification value={notificationDate} />
             <br />
             <Editor
-                initialValue=""
+                initialValue={props.content}
                 previewStyle="vertical"
                 height="600px"
                 initialEditType="markdown"

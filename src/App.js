@@ -11,6 +11,7 @@ import ProblemRegister from "./pages/ProblemRegister"
 import Search from "./pages/Search"
 import Login from "./pages/Login"
 import ReviewRegister from "./pages/ReviewRegister"
+import ReviewUpdate from "./pages/ReviewUpdate";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
 
           <Route exact path="/login" component={Login} />
           <Route exact path="/write" component={ProblemRegister} />
-          <Route exact path="/problems/:problemId/review" component={ReviewRegister} />
+          <Route exact path="/problems/:problemId/reviews/write" component={ReviewRegister} />
+          <Route exact path="/reviews/update" component={ReviewUpdate} />
         </Switch>
       </div>
     </Router>

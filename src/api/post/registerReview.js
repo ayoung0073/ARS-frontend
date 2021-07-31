@@ -1,5 +1,5 @@
 import axios from 'axios';
-import dateSetting from './dateSetting';
+import dateSetting from '../dateSetting';
 
 const base = require('../../utils/base')
 

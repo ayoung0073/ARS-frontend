@@ -20,8 +20,7 @@ function dateSetting(step) {
             date.setDate(today.getDate() + 7); // 1주 후
             break;
         default:
-            date.setMonth(today.getMonth() + 3); // 3달 후
-            break;
+            return step;
     }
 
     let year = date.getFullYear();
