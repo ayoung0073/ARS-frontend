@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dateSetting from './dateSetting';
 
-const base = require('../../base')
+const base = require('../../utils/base')
 
 export const registerProblem = async (props) => {
     const url =

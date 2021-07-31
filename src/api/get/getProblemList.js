@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base  = require('../../base')
+const base = require('../../utils/base')
 
 export const getProblemListApi = async () => {
     const url =

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base = require('../../base')
+const base = require('../../utils/base')
 
 const googleLogin = async (accessToken) => {
     const url =

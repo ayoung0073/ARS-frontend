@@ -5,10 +5,6 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
 import { Rate, Select, Calendar } from 'antd';
-import { GoogleLogin } from "react-google-login";
-import GoogleLoginBtn from "../components/GoogleLogin"
-import Main from "../pages/Main"
-// import googleLogin from "../api/post/googleLogin";
 
 import TagButton from "./TagButton";
 import registerProblem from "../api/post/registerProblem"

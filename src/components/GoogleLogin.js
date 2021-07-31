@@ -1,7 +1,7 @@
 import { GoogleLogin } from "react-google-login";
 import googleLogin from "../api/post/googleLogin";
 
-const base = require('../base.json')
+const base = require('../utils/base.json')
 const clientId = base.client_id;
 
 export default function GoogleLoginBtn(props) {
