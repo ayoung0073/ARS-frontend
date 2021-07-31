@@ -19,7 +19,7 @@ function ProblemForm() {
     const [step, setStep] = useState(1);
     const [link, setLink] = useState("");
     const [tagList, setTagList] = useState([])
-    const [notificationDate, setNotificationDate] = useState("1");
+    const [notificationDate, setNotificationDate] = useState("0");
 
     const onTagHandler = (e) => { setTag(e.currentTarget.value) }
     const onTitleHandler = (e) => { setTitle(e.currentTarget.value) }

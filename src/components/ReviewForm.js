@@ -1,36 +1,31 @@
 import React, { useState } from "react";
-import ReactDOMServer from 'react-dom/server';
 import styled from "styled-components";
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
-import { Rate, Select, Calendar } from 'antd';
+import { Select, Calendar } from 'antd';
 
-import TagButton from "./TagButton";
-import registerProblem from "../api/post/registerProblem"
+import registerReview from "../api/post/registerReview"
 
 function ReviewForm(props) {
     const editorRef = React.useRef();
 
-    const [problemId, setProblemId] = useState(props.problemId);
+    const problemId = props.problemId;
     const title = props.title;
-    const [review, setReview] = useState({});
-    const [notificationDate, setNotificationDate] = useState("1")
+    const [notificationDate, setNotificationDate] = useState("0")
 
     const onNotificationHandler = (e) => { setNotificationDate(e) }
-
 
     const onSumbitHandler = () => {
         const editorInstance = editorRef.current.getInstance();
         console.log(editorInstance.getMarkdown())
-        const body = {
-            title: title,
+        const data = {
+            problemId: problemId,
             notificationDate: notificationDate,
             content: editorInstance.getMarkdown()
         }
-        registerProblem(body)
+        registerReview(data)
     }
-
 
     function Notification() {
         return (
@@ -48,18 +43,18 @@ function ReviewForm(props) {
 
     return (
         <Container className="container">
-        <Title>{title}</Title>
-        <Notification value={notificationDate} />
-        <br/>
-        <Editor
-            initialValue=""
-            previewStyle="vertical"
-            height="600px"
-            initialEditType="markdown"
-            useCommandShortcut={true}
-            ref={editorRef}
-        />
-        <Button onClick={onSumbitHandler} className="btn btn-dark">등록하기</Button>
+            <Title>{title}</Title>
+            <Notification value={notificationDate} />
+            <br />
+            <Editor
+                initialValue=""
+                previewStyle="vertical"
+                height="600px"
+                initialEditType="markdown"
+                useCommandShortcut={true}
+                ref={editorRef}
+            />
+            <Button onClick={onSumbitHandler} className="btn btn-dark">등록하기</Button>
         </Container>
     )
 }
