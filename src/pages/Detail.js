@@ -11,6 +11,7 @@ import HeaderMain from "../components/Header"
 import TagButton from "../components/TagButton";
 import checkMember from "../api/get/checkMember";
 import updateStepApi from "../api/put/updateStep";
+import deleteReviewApi from '../api/delete/deleteReview';
 
 const Detail = (props) => {
     const [problem, setProblem] = useState({});
@@ -39,6 +40,14 @@ const Detail = (props) => {
         setReview(reviewList[reviewId])
     }
 
+    const onDelete = async () => {
+        const check = window.confirm("삭제하시겠습니까?");
+        if (check) {
+            await deleteReviewApi(review.id);
+            window.location.reload();
+        }
+    }
+
     let el = document.querySelector('#viewer')
     if (el !== null) {
         const viewer = new Viewer({
@@ -64,9 +73,12 @@ const Detail = (props) => {
             <HeaderMain />
             <Container>
                 <Title>{problem.title}</Title>
-                <Step allowClear="true" value={step} onChange={onStepChange} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
-                · <Link href={problem.link}>문제 링크</Link>
+                <Line>
+                    <Step allowClear="true" value={step} onChange={onStepChange} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
+                    · <LinkStyle href={problem.link}>문제 링크</LinkStyle>
+                </Line>
                 <TagList tagList={tagList} />
+                <ButtonContainer onDelete={onDelete} />
                 <hr />
                 <div id="viewer"></div>
             </Container>
@@ -85,13 +97,13 @@ function ReviewList(props) {
                     ? <Link to={{
                         pathname: "/problems/" + props.problemId + "/review",
                         state: { title: props.title }
-                      }} 
-                            style={{ 
-                                    color: "white" ,
-                                    // fontWeight: "bold",
-                                    width: "90%",
-                                    marginBottom: "8%"
-                            }} className="btn-secondary btn">Add Review</Link>
+                    }}
+                        style={{
+                            color: "white",
+                            // fontWeight: "bold",
+                            width: "90%",
+                            marginBottom: "8%"
+                        }} className="btn-secondary btn">Add Review</Link>
                     : <Button readonly className="btn-secondary btn">리뷰 목록</Button>
                 }
                 <ReviewBlock>
@@ -124,7 +136,40 @@ function TagList(props) {
     )
 }
 
-const TagContainer = styled.div`
+// const useConfirm = (message = null, onConfirm, onCancel) => {
+//     if (!onConfirm || typeof onConfirm !== "function") {
+//       return;
+//     }
+//     if (onCancel && typeof onCancel !== "function") {
+//       return;
+//     }
+
+//     const confirmAction = () => {
+//       if (window.confirm(message)) {
+//         onConfirm();
+//       } else {
+//         onCancel();
+//       }
+//     };
+
+//     return confirmAction;
+//   };
+
+function ButtonContainer(props) {
+    if (sessionStorage.getItem("access_token") !== null) {
+        return (
+            <>
+                <FixButton onClick={() => props.onDelete()}>삭제</FixButton>
+                <FixButton>수정</FixButton>
+            </>
+        )
+    }
+    else {
+        return (<></>)
+    }
+}
+
+const TagContainer = styled.span`
     margin-top: 15px;
     margin-bottom: 3px;
     padding-bottom: 0px;
@@ -140,7 +185,7 @@ const Container = styled.div`
 const Title = styled.div`
     display: block;
     margin-top: 1.5%;
-    margin-bottom: 0.5%;
+    margin-bottom: 0.1%;
     padding: 0px;
     font-size: 2.75rem;
     width: 100%;
@@ -151,15 +196,16 @@ const Title = styled.div`
     font-weight: bold;
     color: rgb(33, 37, 41);
 `
+const Line = styled.div`
+    margin-bottom: 2%;
+`
 
-// const Link = styled.a`
-//     margin-left: 4px;
-//     font-weight: bold;
-//     width: 85%;
-//     margin-bottom: 8%;
-//     // color: #007bff;
-//     // text-decoration: none;
-// `
+const LinkStyle = styled.a`
+    margin-left: 4px;
+    font-weight: bold;
+    color: rgb(12,166,120);
+    // text-decoration: none;
+`
 
 const Step = styled(Rate)`
     font-size: 25px;
@@ -188,6 +234,13 @@ const Box = styled.div`
 const Button = styled.button`
     width: 85%;
     margin-bottom: 8%;
+`
+
+const FixButton = styled.button`
+    background-color: white;
+    color: darkgrey;
+    border: none;
+    float: right;
 `
 
 const ReviewBlock = styled.div`
