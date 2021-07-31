@@ -75,7 +75,7 @@ const Detail = (props) => {
                 <Title>{problem.title}</Title>
                 <Line>
                     <Step allowClear="true" value={step} onChange={onStepChange} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
-                    · <LinkStyle href={problem.link}>문제 링크</LinkStyle>
+                    · <LinkStyle onClick={() => window.open(problem.link)}>문제 링크</LinkStyle>
                 </Line>
                 <TagList tagList={tagList} />
                 <ButtonContainer onDelete={onDelete} review={review} problem={problem} />
