@@ -89,7 +89,7 @@ const CardComponent = styled.div`
     border: solid 1px lightgrey;
     border-radius: 10px;
     margin-top: 30px;
-    padding: 3% 6%;
+    padding: 2% 6%;
 `
 
 const Title = styled.div`

@@ -124,6 +124,7 @@ const Title = styled.textarea`
     font-weight: bold;
     height: 90px;
     color: rgb(33, 37, 41);
+    resize: none;
 `
 
 const TagLine = styled.div`

@@ -77,6 +77,8 @@ const Title = styled.textarea`
     font-weight: bold;
     height: 80px;
     color: rgb(33, 37, 41);
+    resize: none;
+    margin-bottom: 0.5%;
 `
 
 const Button = styled.button`

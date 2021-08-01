@@ -144,7 +144,7 @@ function ButtonContainer(props) {
                     border: "none",
                     float: "right",
                     textDecoration: "none",
-                    marginLeft: "1%"
+                    marginLeft: "1.3%"
                 }}>
                     삭제
                 </Link>
