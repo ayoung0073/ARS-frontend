@@ -43,16 +43,22 @@ function HeaderMain() {
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 {sessionStorage.getItem("access_token") !== null
                                     ? <li className="nav-item">
-                                        <a className="nav-link active" onClick={check}>문제 등록</a>
+                                        <a className="nav-link" onClick={check}>문제 등록</a>
                                     </li>
                                     : null
                                 }
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">난이도별</a>
                                 </li>
+                                {sessionStorage.getItem("nickname") !== null
+                                    ? <li className="nav-item">
+                                        <a className="nav-link" onClick={() => window.location.href = "/guest"}>방명록</a>
+                                    </li>
+                                    : null
+                                }
                             </ul>
                             <form class="d-flex">
-                                <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" style={{ width: "230px"}} type="search" placeholder="키워드 검색" aria-label="Search" />
+                                <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" style={{ width: "230px" }} type="search" placeholder="키워드 검색" aria-label="Search" />
                                 <button onClick={onClick} class="btn btn-outline-secondary" type="submit">Search</button>
                             </form>
                         </div>
