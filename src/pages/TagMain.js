@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import queryString from 'query-string'
 
+import GoogleLoginBtn from "../components/GoogleLogin"
 import getProblemListApi from '../api/get/getProblemListByTag'
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
@@ -27,6 +28,7 @@ const TagMain = (props) => {
     return (
         <div>
             <HeaderMain />
+            <LoginCheck />
             <Container className="container">
                 <TagList name={tagName} />
                 <ProblemList problemList={problemList} />
@@ -35,8 +37,23 @@ const TagMain = (props) => {
     );
 }
 
+function LoginCheck() {
+    if (sessionStorage.getItem("nickname") === null) {
+        return (
+            <Welcome><GoogleLoginBtn href="/" /></Welcome>
+        )
+    }
+    return (<></>)
+}
+
 const Container = styled.div`
     max-width: 1200px;
+`
+
+const Welcome = styled.span`
+    position: absolute;
+    right: 0.5%;
+    padding: 0.5%;
 `
 
 export default TagMain;

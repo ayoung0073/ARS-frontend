@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const base = require('../../utils/base')
 
-const googleLogin = async (accessToken) => {
+const googleLogin = async (accessToken, nickname) => {
     const url =
         base.url + '/api/members/google';
 
@@ -22,7 +22,7 @@ const googleLogin = async (accessToken) => {
             window.location.href = '/'
         }
         else {
-            console.log('로그인 실패')
+            sessionStorage.setItem("nickname", nickname)
             window.location.href = '/'
         }
     } catch (e) {

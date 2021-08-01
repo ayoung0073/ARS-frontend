@@ -8,7 +8,7 @@ export default function GoogleLoginBtn(props) {
     console.log(props)
     const onSuccess = (response) => {
         console.log(response)
-        googleLogin(response.accessToken);
+        googleLogin(response.accessToken, response.profileObj.name);
     }
 
     const onFailure = (error) => {

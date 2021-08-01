@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import GoogleLoginBtn from "../components/GoogleLogin"
 
+import GoogleLoginBtn from "../components/GoogleLogin"
 import getProblemListApi from '../api/get/getProblemList'
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
@@ -32,7 +32,7 @@ const Main = () => {
 }
 
 function LoginCheck() {
-    if (sessionStorage.getItem("access_token") === null) {
+    if (sessionStorage.getItem("nickname") === null) {
         return (
             <Welcome><GoogleLoginBtn href="/" /></Welcome>
         )
@@ -49,4 +49,5 @@ const Welcome = styled.span`
     right: 0.5%;
     padding: 0.5%;
 `
+
 export default Main;
