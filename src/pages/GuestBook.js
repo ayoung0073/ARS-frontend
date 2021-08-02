@@ -6,10 +6,12 @@ import { List, Avatar, Input } from 'antd';
 
 import HeaderMain from "../components/Header"
 import getGuestListApi from '../api/get/getGuestList';
+import registerGuestApi from '../api/post/registerGuest';
 
 export default function GuestBook() {
 
   const [guestList, setGuestList] = useState([]);
+  const [content, setContent] = useState("");
 
   const getGuestList = async () => {
       const data = await getGuestListApi();
@@ -22,12 +24,17 @@ export default function GuestBook() {
 
     const { TextArea } = Input;
         
-    const onChange = e => {
-        console.log('Change:', e.target.value);
+    const onChange = (e) => {
+      setContent(e.target.value);
     };
 
-    const onSumbitHandler = () => {
-        console.log("클릭")
+    const onSumbitHandler = async () => {
+        console.log(TextArea)
+        const data = {
+          nickname: sessionStorage.getItem("nickname"),
+          content: content
+      }
+      await registerGuestApi(data)
     }
 
     return (
@@ -38,11 +45,11 @@ export default function GuestBook() {
                 {sessionStorage.getItem("nickname") !== null ?
                     <GuestInput>
                         <Button onClick={onSumbitHandler} className="btn btn-outline-secondary">등록하기</Button>
-                        <GuestInputTitle>방명록을 입력해주세요</GuestInputTitle>
+                        <GuestInputTitle><Emoji>📝</Emoji> 방명록을 입력해주세요</GuestInputTitle>
                         <TextArea showCount maxLength={100} onChange={onChange} />
                     </GuestInput>
                     : null}
-                <GuestListTitle>방명록 목록</GuestListTitle>
+                <GuestListTitle><Emoji>📄</Emoji> 방명록 목록</GuestListTitle>
                 <GuestList data={guestList} />
             </div>
         </>
@@ -80,19 +87,23 @@ const GuestInput = styled.div`
 
 const GuestInputTitle = styled.div`
     font-weight: bold;
-    text-decoration: underline;
     margin-bottom: 1%;
-    font-size: 20px;
+    font-size: 19.5px;
     color: dark-grey;
 `
 
 const GuestListTitle = styled.div`
     font-weight: bold;
     margin-top: 3%;
-    margin-bottom: 0.5%%;
-    text-decoration: underline;
-    font-size: 20px;
+    margin-bottom: 0.5%;
+    border-bottom: solid 1px lightgrey;
+    padding-bottom: 0.5%;
+    font-size: 19.5px;
     color: dark-grey;
+`
+
+const Emoji = styled.span`
+  margin-right: 6px;
 `
 
 const Button = styled.span`
