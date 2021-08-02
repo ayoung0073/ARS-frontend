@@ -4,27 +4,24 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { List, Avatar, Input } from 'antd';
 
-
 import HeaderMain from "../components/Header"
+import getGuestListApi from '../api/get/getGuestList';
 
 export default function GuestBook() {
 
-    const { TextArea } = Input;
-    const data = [
-        {
-          title: 'Ant Design Title 1',
-        },
-        {
-          title: 'Ant Design Title 2',
-        },
-        {
-          title: 'Ant Design Title 3',
-        },
-        {
-          title: 'Ant Design Title 4',
-        },
-    ]
+  const [guestList, setGuestList] = useState([]);
 
+  const getGuestList = async () => {
+      const data = await getGuestListApi();
+      setGuestList(data);
+  };
+
+  useEffect(() => {
+    getGuestList();
+  }, []);
+
+    const { TextArea } = Input;
+        
     const onChange = e => {
         console.log('Change:', e.target.value);
     };
@@ -46,10 +43,27 @@ export default function GuestBook() {
                     </GuestInput>
                     : null}
                 <GuestListTitle>방명록 목록</GuestListTitle>
-                <GuestList data={data} />
+                <GuestList data={guestList} />
             </div>
         </>
     )
+}
+
+function GuestList(props) {
+  return (
+      <List
+      itemLayout="horizontal"
+      dataSource={props.data}
+      renderItem={item => (
+        <List.Item>
+          <List.Item.Meta
+            title={item.nickname}
+            description={item.content}
+          />
+        </List.Item>
+      )}
+    />
+  )
 }
 
 const Title = styled.div`
@@ -69,6 +83,7 @@ const GuestInputTitle = styled.div`
     text-decoration: underline;
     margin-bottom: 1%;
     font-size: 20px;
+    color: dark-grey;
 `
 
 const GuestListTitle = styled.div`
@@ -77,26 +92,10 @@ const GuestListTitle = styled.div`
     margin-bottom: 0.5%%;
     text-decoration: underline;
     font-size: 20px;
+    color: dark-grey;
 `
 
 const Button = styled.span`
     float: right;
     padding: 3px 8px;
 `
-
-function GuestList(props) {
-    return (
-        <List
-        itemLayout="horizontal"
-        dataSource={props.data}
-        renderItem={item => (
-          <List.Item>
-            <List.Item.Meta
-              title={item.title}
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-            />
-          </List.Item>
-        )}
-      />
-    )
-}

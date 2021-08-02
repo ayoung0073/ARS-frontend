@@ -50,12 +50,7 @@ function HeaderMain() {
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">난이도별</a>
                                 </li>
-                                {sessionStorage.getItem("nickname") !== null
-                                    ? <li className="nav-item">
-                                        <a className="nav-link" onClick={() => window.location.href = "/guest"}>방명록</a>
-                                    </li>
-                                    : null
-                                }
+                                <a className="nav-link" onClick={() => window.location.href = "/guest"}>방명록</a>
                             </ul>
                             <form class="d-flex">
                                 <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" style={{ width: "230px" }} type="search" placeholder="키워드 검색" aria-label="Search" />
