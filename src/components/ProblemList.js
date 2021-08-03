@@ -12,7 +12,7 @@ function ProblemList(props) {
                     problemList.map((problem) => {
                         return (
                             <CardComponent className="card m-2">
-                                <Card id={problem.id} title={problem.title} step={problem.step} tagList={problem.tagList} />
+                                <Card onClick={props.onClick} id={problem.id} title={problem.title} step={problem.step} tagList={problem.tagList} />
                             </CardComponent>
                         )
                     })}
@@ -28,7 +28,7 @@ function Card(props) {
             <div className="card-body">
                 <Link to={`/problems/${props.id}`} style={{ textDecoration: 'none' }}><div className="card-title"><h4>{props.title}</h4></div></Link>
                 <br />
-                <TagList tagList={props.tagList} />
+                <TagList onClick={props.onClick} tagList={props.tagList} />
             </div>
         </div>
     )
@@ -42,7 +42,7 @@ function TagList(props) {
             {tagList.length != 0 &&
                 tagList.map((o) => {
                     return (
-                        <Link to={`/tags?name=${o.tag.tagName}`} style={{ textDecoration: 'none' }}><TagButton name={o.tag.tagName} /></Link>
+                        <Link onClick={() => props.onClick(o.tag.tagName)} style={{ textDecoration: 'none' }}><TagButton name={o.tag.tagName} /></Link>
                     )
                 })}
         </div>

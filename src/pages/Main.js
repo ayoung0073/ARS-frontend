@@ -13,11 +13,8 @@ const Main = () => {
     const [problemList, setProblemList] = useState([]);
     const [allCount, setAllCount] = useState(0);
     const [tagList, setTagList] = useState([]);
+    const [tagName, setTagName] = useState("전체");
 
-    let tagName = "전체"
-    // if (props.name !== null) {
-    //     tagName = props.name;
-    // }
     const getTagList = async () => {
         const data = await getTagListApi();
         setTagList(data);
@@ -42,10 +39,12 @@ const Main = () => {
 
     const onTagClick = async (tagName) => {
         if (tagName == "전체") {
-            getProblemList(tagName)
+            setTagName(tagName);
+            getProblemList("");
         }
         else {
-            getProblemList(tagName)
+            setTagName(tagName);
+            getProblemList(tagName);
         }
     }
 
@@ -54,8 +53,8 @@ const Main = () => {
             <HeaderMain />
             <LoginCheck />
             <Container className="container">
-                <TagList onClick={onTagClick} tagList={tagList} count={allCount} name="전체" />
-                <ProblemList problemList={problemList} />
+                <TagList onClick={onTagClick} tagList={tagList} count={allCount} name={tagName} />
+                <ProblemList onClick={onTagClick} problemList={problemList} />
             </Container>
             <FooterMain />
         </div>
