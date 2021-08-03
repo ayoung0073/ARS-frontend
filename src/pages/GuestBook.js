@@ -14,64 +14,91 @@ export default function GuestBook() {
   const [content, setContent] = useState("");
 
   const getGuestList = async () => {
-      const data = await getGuestListApi();
-      setGuestList(data);
+    const data = await getGuestListApi();
+    setGuestList(data);
   };
 
   useEffect(() => {
     getGuestList();
   }, []);
 
-    const { TextArea } = Input;
-        
-    const onChange = (e) => {
-      setContent(e.target.value);
-    };
+  const { TextArea } = Input;
 
-    const onSumbitHandler = async () => {
-        console.log(TextArea)
-        const data = {
-          nickname: sessionStorage.getItem("nickname"),
-          content: content
-      }
-      await registerGuestApi(data)
+  const onChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  const onSumbitHandler = async () => {
+    console.log(TextArea)
+    let nickname = "익명"
+    if (sessionStorage.getItem("nickname") !== null) {
+      nickname = sessionStorage.getItem("nickname");
     }
+    const data = {
+      nickname: nickname,
+      content: content
+    }
+    await registerGuestApi(data)
+  }
 
-    return (
-        <>
-            <HeaderMain />
-            <Title>Guest Book</Title>
-            <Container className="container">
-                {sessionStorage.getItem("nickname") !== null ?
-                    <GuestInput>
-                        <Button onClick={onSumbitHandler} className="btn btn-outline-secondary">등록하기</Button>
-                        <GuestInputTitle><Emoji>📝</Emoji> 방명록을 입력해주세요</GuestInputTitle>
-                        <TextArea showCount maxLength={100} onChange={onChange} />
-                    </GuestInput>
-                    : null}
-                <GuestListTitle><Emoji>📄</Emoji> 방명록 목록</GuestListTitle>
-                <GuestList data={guestList} />
-            </Container>
-            <FooterMain />
-        </>
-    )
+  return (
+    <>
+      <HeaderMain />
+      <Title>Guest Book</Title>
+      <Container className="container">
+        <GuestInput>
+          <Button onClick={onSumbitHandler} className="btn btn-outline-secondary">등록하기</Button>
+          <GuestInputTitle><Emoji>📝</Emoji>
+            {sessionStorage.getItem("nickname") !== null ? <span>"{sessionStorage.getItem("nickname")}"님, </span> : <span>"익명"님, </span>}
+            방명록을 입력해주세요
+          </GuestInputTitle>
+          <TextArea showCount maxLength={100} onChange={onChange} />
+        </GuestInput>
+        <GuestListTitle><Emoji>📄</Emoji> 방명록 목록</GuestListTitle>
+        <GuestList data={guestList} />
+      </Container>
+      <FooterMain />
+    </>
+  )
 }
 
 function GuestList(props) {
-  return (
+  if (sessionStorage.getItem("access_token") !== null) {
+    return (
       <List
-      itemLayout="horizontal"
-      dataSource={props.data}
-      renderItem={item => (
-        <List.Item>
-          <List.Item.Meta
-            title={item.nickname}
-            description={item.content}
-          />
-        </List.Item>
-      )}
-    />
-  )
+        itemLayout="horizontal"
+        dataSource={props.data}
+        renderItem={item => (
+          <List.Item
+            actions={[<a key="list-loadmore-edit">delete</a>]}
+          >
+            <List.Item.Meta
+              title={item.content}
+              description={item.nickname}
+            />
+            <div>{item.createdDate}</div>
+          </List.Item>
+        )}
+      />
+    )
+  } 
+  else {
+    return (
+      <List
+        itemLayout="horizontal"
+        dataSource={props.data}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              title={item.nickname}
+              description={item.content}
+            />
+            <div>{item.createdDate}</div>
+          </List.Item>
+        )}
+      />
+    )
+  }
 }
 
 const Container = styled.div`

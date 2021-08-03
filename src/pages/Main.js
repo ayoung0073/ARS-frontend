@@ -3,29 +3,58 @@ import styled from "styled-components";
 
 import GoogleLoginBtn from "../components/GoogleLogin"
 import getProblemListApi from '../api/get/getProblemList'
+import getTagListApi from '../api/get/getTagList';
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
-import TagList from "../components/TagAllList";
+import TagList from "../components/TagList";
 import FooterMain from '../components/Footer';
 
 const Main = () => {
     const [problemList, setProblemList] = useState([]);
+    const [allCount, setAllCount] = useState(0);
+    const [tagList, setTagList] = useState([]);
 
-    const getProblemList = async () => {
-        const data = await getProblemListApi();
+    let tagName = "전체"
+    // if (props.name !== null) {
+    //     tagName = props.name;
+    // }
+    const getTagList = async () => {
+        const data = await getTagListApi();
+        setTagList(data);
+    };
+
+    const getProblemList = async (tagName) => {
+        const data = await getProblemListApi(tagName);
+        if (tagName === "") {
+            setAllCount(data.length);
+        }
         setProblemList(data);
     };
 
     useEffect(() => {
-        getProblemList();
+        getTagList();
     }, []);
+
+    useEffect(() => {
+        getProblemList("");
+    }, []);
+
+
+    const onTagClick = async (tagName) => {
+        if (tagName == "전체") {
+            getProblemList(tagName)
+        }
+        else {
+            getProblemList(tagName)
+        }
+    }
 
     return (
         <div>
             <HeaderMain />
             <LoginCheck />
             <Container className="container">
-                <TagList name="전체" />
+                <TagList onClick={onTagClick} tagList={tagList} count={allCount} name="전체" />
                 <ProblemList problemList={problemList} />
             </Container>
             <FooterMain />

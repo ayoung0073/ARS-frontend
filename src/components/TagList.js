@@ -1,31 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import getTagListApi from '../api/get/getTagList'
 
 function TagList(props) { // 전체 리스트 
-    const [tagList, setTagList] = useState([]);
-    let tagName = "전체"
-    let allCount = 0;
-    if (props.name !== null) {
-        tagName = props.name;
-    }
-    const getTagList = async () => {
-        const data = await getTagListApi();
-        setTagList(data);
-    };
-
-    useEffect(() => {
-        getTagList();
-    }, []);
-
+    const tagList = props.tagList;
+    const tagName = props.name;
+    console.log(props)
     const buttonClick = async (tagName) => {
-        if (tagName == "전체") {
-            window.location.href = "/";
-        }
-        else {
-            window.location.href = "/tags?name=" + tagName
-        }
+        props.onClick(tagName);
     }
 
     return (
@@ -34,7 +16,6 @@ function TagList(props) { // 전체 리스트
             <div>
                 {tagList.length != 0 &&
                     tagList.map((tag) => {
-                        allCount += tag.count
                         return (
                             <Link onClick={() => buttonClick(tag.tagName)} style={{ textDecoration: 'none' }}>
                                 {tagName === tag.tagName ?
@@ -46,8 +27,8 @@ function TagList(props) { // 전체 리스트
                 <AllTag>
                     <Link onClick={() => buttonClick("전체")} style={{ textDecoration: 'none' }}>
                         {tagName === "전체" ?
-                            <TagClickButton>전체<TagClickCount>({allCount})</TagClickCount></TagClickButton>
-                            : <TagButton>전체<TagCount>({allCount})</TagCount></TagButton>}
+                            <TagClickButton>전체<TagClickCount>({props.count})</TagClickCount></TagClickButton>
+                            : <TagButton>전체<TagCount>({props.count})</TagCount></TagButton>}
                     </Link>
                 </AllTag>
             </div>

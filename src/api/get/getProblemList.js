@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const base = require('../../utils/base')
 
-export const getProblemListApi = async () => {
+export const getProblemListApi = async (tagName) => {
     const url =
-        base.url + '/api/problems';
+        base.url + '/api/problems?tag=' + tagName;
     try {
         const response = await axios.get(`${url}`);
         console.log('[SUCCESS] GET ', response);
