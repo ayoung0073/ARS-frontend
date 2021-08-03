@@ -4,9 +4,11 @@ import 'antd/dist/antd.css';
 import { List, Input } from 'antd';
 
 import HeaderMain from "../components/Header"
+import FooterMain from '../components/Footer';
+
 import getGuestListApi from '../api/get/getGuestList';
 import registerGuestApi from '../api/post/registerGuest';
-import FooterMain from '../components/Footer';
+import deleteGuestApi from '../api/delete/deleteGuest';
 
 export default function GuestBook() {
 
@@ -28,9 +30,23 @@ export default function GuestBook() {
     setContent(e.target.value);
   };
 
+  const onDeleteClick = async (guestId) => {
+    await deleteGuestApi(guestId);
+    getGuestList();
+  }
+
+  const onKeyPress = (e) => { // TODO 엔터키 누르면 등록? 아니면 그냥 둘지
+    if (e.key == 'Enter') {
+      e.preventDefault()
+      onSumbitHandler()
+      setContent("")
+    }
+  }
+
   const onSumbitHandler = async () => {
     console.log(TextArea)
-    let nickname = "익명"
+    setContent("")
+    let nickname = "익명";
     if (sessionStorage.getItem("nickname") !== null) {
       nickname = sessionStorage.getItem("nickname");
     }
@@ -39,6 +55,7 @@ export default function GuestBook() {
       content: content
     }
     await registerGuestApi(data)
+    getGuestList();
   }
 
   return (
@@ -52,10 +69,10 @@ export default function GuestBook() {
             {sessionStorage.getItem("nickname") !== null ? <span>"{sessionStorage.getItem("nickname")}"님, </span> : <span>"익명"님, </span>}
             방명록을 입력해주세요
           </GuestInputTitle>
-          <TextArea showCount maxLength={100} onChange={onChange} />
+          <TextArea value={content} onChange={onChange} showCount maxLength={100} />
         </GuestInput>
         <GuestListTitle><Emoji>📄</Emoji> 방명록 목록</GuestListTitle>
-        <GuestList data={guestList} />
+        <GuestList onClick={onDeleteClick} data={guestList} />
       </Container>
       <FooterMain />
     </>
@@ -69,19 +86,22 @@ function GuestList(props) {
         itemLayout="horizontal"
         dataSource={props.data}
         renderItem={item => (
-          <List.Item
-            actions={[<a key="list-loadmore-edit">delete</a>]}
-          >
-            <List.Item.Meta
-              title={item.content}
-              description={item.nickname}
-            />
-            <div>{item.createdDate}</div>
-          </List.Item>
+          <>
+            {console.log(item)}
+            <List.Item
+              actions={[<Button onClick={() => props.onClick(item.id)} className="btn btn-outline-secondary">delete</Button>]}
+            >
+              <List.Item.Meta
+                title={item.content}
+                description={item.nickname}
+              />
+              <span>{item.createdDate}</span>
+            </List.Item>
+          </>
         )}
       />
     )
-  } 
+  }
   else {
     return (
       <List
@@ -113,6 +133,7 @@ const Title = styled.div`
     font-size: 35px;
     font-weight: bold;
 `
+
 
 const GuestInput = styled.div`
     margin-top: 2%;

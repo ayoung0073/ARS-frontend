@@ -19,7 +19,6 @@ export const registerGuestApi = async (props) => {
     try {
         const response = await axios(option);
         console.log('[SUCCESS] POST ', response);
-        window.location.reload();
     } catch (e) {
         console.log('[FAIL] POST ', e);
         return null;
