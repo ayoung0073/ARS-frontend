@@ -22,11 +22,12 @@ const googleLogin = async (accessToken, nickname) => {
             window.location.href = '/'
         }
         else {
-            sessionStorage.setItem("nickname", nickname)
             window.location.href = '/'
         }
     } catch (e) {
         console.log('[FAIL] POST ', e);
+        sessionStorage.setItem("nickname", nickname)
+        window.location.href = '/'
         return null;
     }
 };

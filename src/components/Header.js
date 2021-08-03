@@ -47,9 +47,9 @@ function HeaderMain() {
                                     </li>
                                     : null
                                 }
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <a className="nav-link" href="#">난이도별</a>
-                                </li>
+                                </li> */}
                                 <a className="nav-link" onClick={() => window.location.href = "/guest"}>방명록</a>
                             </ul>
                             <form class="d-flex">
@@ -67,7 +67,7 @@ function HeaderMain() {
 }
 
 function LoginCheck() {
-    if (sessionStorage.getItem("access_token")) {
+    if (sessionStorage.getItem("nickname")) {
         return (
             <Welcome><b>{sessionStorage.getItem("nickname")}</b>님 환영합니다!</Welcome>
         )
