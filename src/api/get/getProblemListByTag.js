@@ -4,7 +4,7 @@ const base = require('../../utils/base')
 
 export const getProblemListApi = async (tagName) => {
     const url =
-        base.url + '/api/tags?name=' + tagName;
+        base.url + '/api/problems?name=' + tagName;
     try {
         const response = await axios.get(`${url}`);
         console.log('[SUCCESS] GET ', response);
