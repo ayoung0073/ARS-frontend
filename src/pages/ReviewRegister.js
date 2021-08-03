@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import HeaderMain from "../components/Header"
 import ReviewForm from "../components/ReviewForm"
 import registerReview from "../api/post/registerReview"
+import FooterMain from '../components/Footer';
 
 const ReviewRegister = (props) => {
     console.log(props)
@@ -19,6 +20,7 @@ const ReviewRegister = (props) => {
         <div>
             <HeaderMain />
             <ReviewForm onSumbitHandler={onSumbitHandler} problemId={props.match.params.problemId} notificationDate="0" title={props.location.state.title} content="" />
+            <FooterMain />
         </div>
     );
 }

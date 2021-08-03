@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { List, Avatar, Input } from 'antd';
+import { List, Input } from 'antd';
 
 import HeaderMain from "../components/Header"
 import getGuestListApi from '../api/get/getGuestList';
 import registerGuestApi from '../api/post/registerGuest';
+import FooterMain from '../components/Footer';
 
 export default function GuestBook() {
 
@@ -41,7 +41,7 @@ export default function GuestBook() {
         <>
             <HeaderMain />
             <Title>Guest Book</Title>
-            <div className="container">
+            <Container className="container">
                 {sessionStorage.getItem("nickname") !== null ?
                     <GuestInput>
                         <Button onClick={onSumbitHandler} className="btn btn-outline-secondary">등록하기</Button>
@@ -51,7 +51,8 @@ export default function GuestBook() {
                     : null}
                 <GuestListTitle><Emoji>📄</Emoji> 방명록 목록</GuestListTitle>
                 <GuestList data={guestList} />
-            </div>
+            </Container>
+            <FooterMain />
         </>
     )
 }
@@ -72,6 +73,11 @@ function GuestList(props) {
     />
   )
 }
+
+const Container = styled.div`
+  padding-left: 3%;
+  padding-right: 3%;
+`
 
 const Title = styled.div`
     margin-top: 1%;

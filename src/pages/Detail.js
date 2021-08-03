@@ -12,6 +12,7 @@ import TagButton from "../components/TagButton";
 import checkMember from "../api/get/checkMember";
 import updateStepApi from "../api/put/updateStep";
 import deleteReviewApi from '../api/delete/deleteReview';
+import FooterMain from '../components/Footer';
 
 const Detail = (props) => {
     const [problem, setProblem] = useState({});
@@ -83,6 +84,7 @@ const Detail = (props) => {
                 <div id="viewer"></div>
             </Container>
             <ReviewList onClick={onClick} problemId={problemId} title={problem.title} reviewList={reviewList} />
+            <FooterMain />
         </div>
     );
 }

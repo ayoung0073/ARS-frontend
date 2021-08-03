@@ -6,6 +6,7 @@ import getProblemListApi from '../api/get/getProblemList'
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
 import TagList from "../components/TagAllList";
+import FooterMain from '../components/Footer';
 
 const Main = () => {
     const [problemList, setProblemList] = useState([]);
@@ -27,6 +28,7 @@ const Main = () => {
                 <TagList name="전체" />
                 <ProblemList problemList={problemList} />
             </Container>
+            <FooterMain />
         </div>
     );
 }

@@ -7,6 +7,7 @@ import { Viewer } from '@toast-ui/react-editor';
 
 import HeaderMain from "../components/Header"
 import searchApi from '../api/get/getSearch'
+import FooterMain from '../components/Footer';
 
 const Search = (props) => {
     const [searchList, setSearchList] = useState([])
@@ -42,6 +43,7 @@ const Search = (props) => {
                         )
                     })}
                 </SearchList>
+                <FooterMain />
             </div>
         )
     }
