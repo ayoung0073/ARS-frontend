@@ -36,7 +36,7 @@ const Search = (props) => {
                             <CardComponent>
                                 <Link href={`/problems/${search.id}`} style={{ textDecoration: 'none' }}><Title>{search.title}</Title></Link>
                                 <Step value={search.step} />
-                                · <Link href={search.link}>문제 링크</Link>
+                                · <Link onClick={() => window.open(search.link)}>문제 링크</Link>
                                 <hr />
                                 <Viewer initialValue={search.content} />
                             </CardComponent>

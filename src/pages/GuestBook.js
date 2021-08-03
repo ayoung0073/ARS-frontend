@@ -71,7 +71,7 @@ export default function GuestBook() {
           </GuestInputTitle>
           <TextArea value={content} onChange={onChange} showCount maxLength={100} />
         </GuestInput>
-        <GuestListTitle><Emoji>📄</Emoji> 방명록 목록</GuestListTitle>
+        <GuestListTitle><Emoji>📄</Emoji> 방명록</GuestListTitle>
         <GuestList onClick={onDeleteClick} data={guestList} />
       </Container>
       <FooterMain />
