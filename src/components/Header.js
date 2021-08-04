@@ -10,7 +10,8 @@ function HeaderMain() {
         setSearch(e.currentTarget.value)
     }
 
-    const onClick = () => {
+    const onClick = (e) => {
+        e.preventDefault();
         console.log(search)
         window.location.href = "/search?q=" + search;
     }
@@ -53,7 +54,7 @@ function HeaderMain() {
                                 <a className="nav-link" onClick={() => window.location.href = "/guest"}>방명록</a>
                             </ul>
                             <form class="d-flex">
-                                <input onChange={onChange} onKeyPress={onKeyPress} class="form-control me-2" style={{ width: "230px" }} type="search" placeholder="키워드 검색" aria-label="Search" />
+                                <input onChange={onChange} onKeyPress={onKeyPress} value={search} class="form-control me-2" style={{ width: "230px" }} type="search" placeholder="키워드 검색" aria-label="Search" />
                                 <button onClick={onClick} class="btn btn-outline-secondary" type="submit">Search</button>
                             </form>
                         </div>
