@@ -9,6 +9,7 @@ const ReviewRegister = (props) => {
 
     const onSumbitHandler = (props) => {
         const data = {
+            title: props.title,
             problemId: props.problemId,
             notificationDate: props.notificationDate,
             content: props.content

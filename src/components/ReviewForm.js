@@ -18,6 +18,7 @@ function ReviewForm(props) {
         const editorInstance = editorRef.current.getInstance();
         console.log(editorInstance.getMarkdown())
         const data = {
+            title: title,
             problemId: problemId,
             notificationDate: notificationDate,
             content: editorInstance.getMarkdown()

@@ -15,6 +15,7 @@ export const registerReview = async (props) => {
             "Authorization": sessionStorage.getItem("access_token")
         },
         data: {
+            title: props.title,
             notificationDate: dateSetting(props.notificationDate),
             content: props.content
         }
