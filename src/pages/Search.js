@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import queryString from 'query-string'
 import styled from 'styled-components'
 import 'antd/dist/antd.css';
-import { Rate } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
+import { Rate } from 'antd';
+import { Pagination } from 'antd';
 
 import HeaderMain from "../components/Header"
 import searchApi from '../api/get/getSearch'
@@ -11,19 +12,25 @@ import FooterMain from '../components/Footer';
 
 const Search = (props) => {
     const [searchList, setSearchList] = useState([])
+    const [page, setPage] = useState(0);
 
     const { search } = props.location;
     const queryObj = queryString.parse(search);
     const keyword = queryObj.q;
 
     const getSearchList = async () => {
-        const data = await searchApi(keyword);
+        const data = await searchApi(page, keyword);
         setSearchList(data)
     };
 
     useEffect(() => {
         getSearchList();
     }, []);
+
+    const onPageClick = async (e) => {
+        const data = await searchApi(e - 1, keyword);
+        setSearchList(data);
+    }
 
     if (searchList.length > 0) {
         return (
@@ -43,6 +50,12 @@ const Search = (props) => {
                         )
                     })}
                 </SearchList>
+                <PageContainer>
+                    {searchList.length !== 0
+                        ? <Pagination onChange={onPageClick} defaultCurrent={1} total={searchList.length / 9 + 1} />
+                        : null
+                    }
+                </PageContainer>
                 <FooterMain />
             </div>
         )
@@ -118,6 +131,11 @@ const Link = styled.a`
 const Step = styled(Rate)`
     font-size: 25px;
     margin-right: 4px;
+`
+
+const PageContainer = styled.div`
+    text-align: center;
+    margin-top: 30px;
 `
 
 export default Search

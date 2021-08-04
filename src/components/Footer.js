@@ -8,6 +8,6 @@ function FooterMain() {
 }
 
 const Footer = styled.div`
-    height: 50px;
+    height: 30px;
 `
 export default FooterMain;
