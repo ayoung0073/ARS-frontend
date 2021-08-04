@@ -9,7 +9,7 @@ import ProblemList from "../components/ProblemList"
 import TagList from "../components/TagList";
 import FooterMain from '../components/Footer';
 
-const Main = () => {
+const Main = (props) => {
     const [problemList, setProblemList] = useState([]);
     const [allCount, setAllCount] = useState(0);
     const [tagList, setTagList] = useState([]);
@@ -19,6 +19,12 @@ const Main = () => {
         const data = await getTagListApi();
         setTagList(data);
     };
+    
+    if (props.location.state !== undefined) {
+        if (tagName === "전체"){
+            setTagName(props.location.state.tagName);
+        }
+    } 
 
     const getProblemList = async (tagName) => {
         const data = await getProblemListApi(tagName);
