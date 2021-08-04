@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 
 import GoogleLoginBtn from "../components/GoogleLogin"
-import getProblemListApi from '../api/get/getProblemList'
-import getTagListApi from '../api/get/getTagList';
 import HeaderMain from "../components/Header"
 import ProblemList from "../components/ProblemList"
 import TagList from "../components/TagList";
 import FooterMain from '../components/Footer';
+import getProblemListApi from '../api/get/getProblemList'
+import getTagListApi from '../api/get/getTagList';
+import getProblemCountApi from '../api/get/getProblemCount';
 
 const Main = (props) => {
     const [problemList, setProblemList] = useState([]);
@@ -28,11 +29,13 @@ const Main = (props) => {
 
     const getProblemList = async (tagName) => {
         const data = await getProblemListApi(tagName);
-        if (tagName === "") {
-            setAllCount(data.length);
-        }
         setProblemList(data);
     };
+
+    const getProblemCount = async () => {
+        const data = await getProblemCountApi();
+        setAllCount(data);
+    }
 
     useEffect(() => {
         getTagList();
@@ -42,6 +45,9 @@ const Main = (props) => {
         getProblemList("");
     }, []);
 
+    useEffect(() => {
+        getProblemCount();
+    }, []);
 
     const onTagClick = async (tagName) => {
         if (tagName == "전체") {
