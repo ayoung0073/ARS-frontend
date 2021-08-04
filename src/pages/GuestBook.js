@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import 'antd/dist/antd.css';
-import { List, Input } from 'antd';
+import { List, Input, Pagination } from 'antd';
 
 import HeaderMain from "../components/Header"
 import FooterMain from '../components/Footer';
@@ -9,19 +9,30 @@ import FooterMain from '../components/Footer';
 import getGuestListApi from '../api/get/getGuestList';
 import registerGuestApi from '../api/post/registerGuest';
 import deleteGuestApi from '../api/delete/deleteGuest';
+import getGuestCountApi from '../api/get/getGuestCount';
 
 export default function GuestBook() {
 
   const [guestList, setGuestList] = useState([]);
+  const [guestCount, setGuestCount] = useState(0);
   const [content, setContent] = useState("");
 
   const getGuestList = async () => {
-    const data = await getGuestListApi();
+    const data = await getGuestListApi(0);
     setGuestList(data);
+  };
+
+  const getGuestCount = async () => {
+    const data = await getGuestCountApi();
+    setGuestCount(data);
   };
 
   useEffect(() => {
     getGuestList();
+  }, []);
+
+  useEffect(() => {
+    getGuestCount();
   }, []);
 
   const { TextArea } = Input;
@@ -41,6 +52,12 @@ export default function GuestBook() {
       onSumbitHandler()
       setContent("")
     }
+  }
+
+  const onPageClick = async (e) => {
+    console.log(e)
+    const data = await getGuestListApi(e - 1);
+    setGuestList(data);
   }
 
   const onSumbitHandler = async () => {
@@ -71,8 +88,11 @@ export default function GuestBook() {
           </GuestInputTitle>
           <TextArea value={content} onChange={onChange} showCount maxLength={100} />
         </GuestInput>
-        <GuestListTitle><Emoji>📄</Emoji> 방명록</GuestListTitle>
+        <GuestListAllTitle><GuestListTitle><Emoji>📄</Emoji> 방명록</GuestListTitle>({guestCount})</GuestListAllTitle>
         <GuestList onClick={onDeleteClick} data={guestList} />
+        <PageContainer>
+            <Pagination onChange={onPageClick} defaultCurrent={1} pageSize={12} total={guestCount} />
+        </PageContainer>
       </Container>
       <FooterMain />
     </>
@@ -134,7 +154,6 @@ const Title = styled.div`
     font-weight: bold;
 `
 
-
 const GuestInput = styled.div`
     margin-top: 2%;
 `
@@ -146,14 +165,18 @@ const GuestInputTitle = styled.div`
     color: dark-grey;
 `
 
-const GuestListTitle = styled.div`
+const GuestListTitle = styled.span`
     font-weight: bold;
-    margin-top: 3%;
-    margin-bottom: 0.5%;
-    border-bottom: solid 1px lightgrey;
-    padding-bottom: 0.5%;
     font-size: 19.5px;
+    margin-right: 3px;
     color: dark-grey;
+`
+
+const GuestListAllTitle = styled.div`
+  margin-bottom: 0.5%;
+  margin-top: 3%;
+  border-bottom: solid 1px lightgrey;
+  padding-bottom: 0.5%;font-weight: bold;
 `
 
 const Emoji = styled.span`
@@ -163,4 +186,9 @@ const Emoji = styled.span`
 const Button = styled.span`
     float: right;
     padding: 3px 8px;
+`
+
+const PageContainer = styled.div`
+    text-align: center;
+    bottom: 20px;
 `

@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const base = require('../../utils/base')
 
-export const searchApi = async (keyword) => {
+export const getGuestCountApi = async () => {
     const url =
-        base.url + '/api?search=' + keyword;
+        base.url + '/api/guests/count';
     try {
         const response = await axios.get(`${url}`);
         console.log('[SUCCESS] GET ', response);
@@ -15,4 +15,4 @@ export const searchApi = async (keyword) => {
     }
 };
 
-export default searchApi;
+export default getGuestCountApi;

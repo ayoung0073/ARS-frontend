@@ -13,7 +13,7 @@ import getProblemCountApi from '../api/get/getProblemCount';
 
 const Main = (props) => {
     const [problemList, setProblemList] = useState([]);
-    const [allCount, setAllCount] = useState(10);
+    const [allCount, setAllCount] = useState(0);
     const [tagList, setTagList] = useState([]);
     const [tagName, setTagName] = useState("전체");
     const [page, setPage] = useState(0);
@@ -95,8 +95,8 @@ const Main = (props) => {
             </Container>
             <PageContainer>
                 {tagName !== "전체"
-                    ? <Pagination onChange={onPageClick} defaultCurrent={1} pageSize={9} total={tagCount} />
-                    : <Pagination onChange={onPageClick} defaultCurrent={1} pageSize={9} total={allCount} />
+                    ? <Pagination onChange={onPageClick} defaultCurrent={1} pageSize={12} total={tagCount} />
+                    : <Pagination onChange={onPageClick} defaultCurrent={1} pageSize={12} total={allCount} />
                 }
             </PageContainer>
             <FooterMain />
@@ -124,11 +124,10 @@ const Welcome = styled.span`
 `
 
 const PageContainer = styled.div`
-    text-align: center;
     width: 100%;
-    position: fixed;
-    bottom: 20px;
+    text-align: center;
     margin-top: 1%;
+    bottom: 2%;
 `
 
 export default Main;
