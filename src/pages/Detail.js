@@ -12,6 +12,7 @@ import TagButton from "../components/TagButton";
 import checkMember from "../api/get/checkMember";
 import updateStepApi from "../api/put/updateStep";
 import deleteReviewApi from '../api/delete/deleteReview';
+import deleteProblemApi from '../api/delete/deleteProblem';
 import FooterMain from '../components/Footer';
 
 const Detail = (props) => {
@@ -44,8 +45,14 @@ const Detail = (props) => {
     const onDelete = async () => {
         const check = window.confirm("삭제하시겠습니까?");
         if (check) {
-            await deleteReviewApi(review.id);
-            window.location.reload();
+            if (reviewList.length > 1) {
+                await deleteReviewApi(review.id);
+                window.location.reload();
+            }
+            else {
+                await deleteProblemApi(problemId);
+                window.location.href = "/"
+            }
         }
     }
 
