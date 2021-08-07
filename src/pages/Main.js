@@ -24,13 +24,13 @@ const Main = (props) => {
         setTagList(data);
     };
 
-    if (props.location.state !== undefined) {
-        if (tagName === "전체") {
-            setTagName(props.location.state.tagName);
-        }
-    }
-
     const getProblemList = async (tagName) => {
+        if (props.location.state !== undefined) {
+            tagName = props.location.state.tagName;
+            setTagName(props.location.state.tagName);
+            const data = await getTagListApi();
+            setTagCount(data.length)
+        }          
         const data = await getProblemListApi(tagName, 0);
         setProblemList(data);
     };
