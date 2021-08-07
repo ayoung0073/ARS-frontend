@@ -9,7 +9,7 @@ export const getProblemApi = async (idx) => {
         const response = await axios.get(`${url}`);
         return response.data.data;
     } catch (e) {
-        return null;
+        window.location.href = "/404"
     }
 }
 

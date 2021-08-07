@@ -6,7 +6,9 @@ import FooterMain from '../components/Footer';
 
 const ReviewRegister = (props) => {
     console.log(props)
-
+    if (props.location.state === undefined) {
+        window.location.href = "/404"
+    }
     const onSumbitHandler = (props) => {
         const data = {
             title: props.title,
@@ -16,7 +18,6 @@ const ReviewRegister = (props) => {
         }
         registerReview(data)
     }
-
     return (
         <div>
             <HeaderMain />
