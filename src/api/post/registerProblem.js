@@ -26,10 +26,8 @@ export const registerProblem = async (props) => {
 
     try {
         const response = await axios(option);
-        console.log('[SUCCESS] POST ', response);
-        window.location.href = "/"; // TODO 수정
+        window.location.href = "/problems/" + response.data.data; // TODO 수정
     } catch (e) {
-        console.log('[FAIL] POST ', e);
         return null;
     }
 };

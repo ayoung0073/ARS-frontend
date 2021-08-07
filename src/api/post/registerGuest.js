@@ -20,7 +20,6 @@ export const registerGuestApi = async (props) => {
         const response = await axios(option);
         console.log('[SUCCESS] POST ', response);
     } catch (e) {
-        console.log('[FAIL] POST ', e);
         return null;
     }
 };

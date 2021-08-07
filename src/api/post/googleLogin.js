@@ -14,7 +14,6 @@ const googleLogin = async (accessToken, nickname) => {
 
     try {
         const response = await axios(option);
-        console.log('[SUCCESS] POST ', response);
         if (response.data.status === 200) {
             console.log('로그인 성공')
             sessionStorage.setItem("nickname", response.data.data.nickname)
@@ -25,7 +24,6 @@ const googleLogin = async (accessToken, nickname) => {
             window.location.href = '/'
         }
     } catch (e) {
-        console.log('[FAIL] POST ', e);
         sessionStorage.setItem("nickname", nickname)
         window.location.href = '/'
         return null;

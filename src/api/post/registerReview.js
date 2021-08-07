@@ -22,11 +22,9 @@ export const registerReview = async (props) => {
     }
 
     try {
-        const response = await axios(option);
-        console.log('[SUCCESS] POST ', response);
+        await axios(option);
         window.location.href = "/problems/" + props.problemId; 
     } catch (e) {
-        console.log('[FAIL] POST ', e);
         return null;
     }
 };

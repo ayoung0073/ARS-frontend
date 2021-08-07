@@ -16,13 +16,11 @@ export const checkMember = async () => {
 
     try {
         const response = await axios(option);
-        console.log('[SUCCESS] GET ', response);
         if (response.data.status !== 200) {
             return false;
         }
         return true;
     } catch (e) {
-        console.log('[FAIL] GET ', e);
         return false;
     }
 };

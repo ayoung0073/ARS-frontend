@@ -16,9 +16,7 @@ export const deleteReviewApi = async (idx) => {
 
     try {
         const response = await axios(option);
-        console.log('[SUCCESS] DELETE ', response);
     } catch (e) {
-        console.log('[FAIL] DELETE ', e);
         return null;
     }
 };

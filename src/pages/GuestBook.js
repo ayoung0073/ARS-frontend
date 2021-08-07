@@ -46,14 +46,6 @@ export default function GuestBook() {
     getGuestList();
   }
 
-  const onKeyPress = (e) => { // TODO 엔터키 누르면 등록? 아니면 그냥 둘지
-    if (e.key == 'Enter') {
-      e.preventDefault()
-      onSumbitHandler()
-      setContent("")
-    }
-  }
-
   const onPageClick = async (e) => {
     console.log(e)
     const data = await getGuestListApi(e - 1);
