@@ -26,6 +26,7 @@ export const registerProblem = async (props) => {
 
     try {
         const response = await axios(option);
+        console.log(response)
         window.location.href = "/problems/" + response.data.data; // TODO 수정
     } catch (e) {
         return null;
