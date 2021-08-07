@@ -12,6 +12,7 @@ import Login from "./pages/Login"
 import ReviewRegister from "./pages/ReviewRegister"
 import ReviewUpdate from "./pages/ReviewUpdate";
 import GuestBook from "./pages/GuestBook";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
           <Route exact path="/reviews/update" component={ReviewUpdate} />
           
           <Route exact path="/guest" component={GuestBook} />
+
+          <Route component={NotFound}/>
         </Switch>
       </div>
     </Router>
