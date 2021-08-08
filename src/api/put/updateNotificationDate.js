@@ -2,11 +2,11 @@ import axios from 'axios';
 
 const base = require('../../utils/base')
 
-export const updateStepApi = async (idx, step) => {
+export const updateNotificationDateApi = async (idx, notificationDate) => {
     const url =
-        base.url + '/api/problems/' + idx + '/step';
+        base.url + '/api/problems/' + idx + '/notification';
 
-    console.log(idx, step)
+    console.log(idx, notificationDate)
     const option = {
         url: url,
         method: 'PUT',
@@ -14,15 +14,15 @@ export const updateStepApi = async (idx, step) => {
             "Authorization": sessionStorage.getItem("access_token")
         },
         data: {
-            step: step
+            notificationDate: notificationDate
         }
     }
 
     try {
         const response = await axios(option);
     } catch (e) {
-        return null;
+        console.log('[FAIL] PUT ', e);
     }
 };
 
-export default updateStepApi;
+export default updateNotificationDateApi;

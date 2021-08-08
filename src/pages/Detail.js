@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import '@toast-ui/editor/dist/toastui-editor.css';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import 'antd/dist/antd.css';
-import { Rate } from 'antd';
+import { Rate, DatePicker } from 'antd';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 import getProblemApi from '../api/get/getProblem'
 import HeaderMain from "../components/Header"
@@ -13,6 +14,7 @@ import checkMember from "../api/get/checkMember";
 import updateStepApi from "../api/put/updateStep";
 import deleteReviewApi from '../api/delete/deleteReview';
 import deleteProblemApi from '../api/delete/deleteProblem';
+import updateNotificationDateApi from '../api/put/updateNotificationDate';
 import FooterMain from '../components/Footer';
 
 const Detail = (props) => {
@@ -21,6 +23,7 @@ const Detail = (props) => {
     const [reviewList, setReviewList] = useState([]);
     const [tagList, setTagList] = useState([]);
     const [step, setStep] = useState(1);
+    const [notificationDate, setNotificationDate] = useState("");
 
     const problemId = props.match.params.problemId;
 
@@ -31,6 +34,7 @@ const Detail = (props) => {
         setReview(data.reviewList[0])
         setTagList(data.tagList)
         setStep(data.step)
+        setNotificationDate(data.notificationDate)
     };
 
     useEffect(() => {
@@ -55,6 +59,14 @@ const Detail = (props) => {
             }
         }
     }
+
+    const onDateChange = async (value, mode) => {
+        updateNotificationDateApi()
+        setNotificationDate(mode)
+        if (await checkMember() == true) {
+            updateNotificationDateApi(problem.id, mode)
+        }
+      }
 
     let el = document.querySelector('#viewer')
     if (el !== null) {
@@ -82,8 +94,13 @@ const Detail = (props) => {
             <Container>
                 <Title>{problem.title}</Title>
                 <Line>
-                    <Step allowClear="true" value={step} onChange={onStepChange} /> · <Notification>알림 예정일  <b>{problem.notificationDate}</b></Notification>
-                    · <LinkStyle onClick={() => window.open(problem.link)}>문제 링크</LinkStyle>
+                    <Step allowClear="true" value={step} onChange={onStepChange} />
+                    {sessionStorage.getItem("access_token") !== null
+                     ? <>· <Notification>알림 예정일 <DatePicker value={moment(notificationDate, "YYYY-MM-DD")} defaultValue={problem.notificationDate} defaultPickerValue={moment(problem.notificationDate, "YYYY-MM-DD")} onChange={onDateChange} /></Notification></>
+                     : <>· <Notification>알림 예정일 <b>{notificationDate}</b></Notification></>
+                    }
+                     {/* placeholder={problem.notificationDate} */}
+                     · <LinkStyle onClick={() => window.open(problem.link)}>문제 링크</LinkStyle>
                 </Line>
                 <TagList tagList={tagList} />
                 <ButtonContainer onDelete={onDelete} review={review} problem={problem} />

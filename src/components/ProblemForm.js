@@ -4,7 +4,7 @@ import styled from "styled-components";
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import 'antd/dist/antd.css';
-import { Rate, Select, Calendar } from 'antd';
+import { Rate, Select } from 'antd';
 
 import TagButton from "./TagButton";
 import registerProblem from "../api/post/registerProblem"
@@ -64,16 +64,22 @@ function ProblemForm() {
         setTagList(result);
     }
 
+    function onDateChange(date, dateString) {
+        console.log(date, dateString);
+    }
+
     function Notification() {
         return (
-            <CustomSelect onChange={onNotificationHandler} defaultValue={notificationDate}>
-                <option value="0" selected>알림 기한 설정</option>
-                <option value="5">일주일 후 알림</option>
-                <option value="4">이주일 후 알림</option>
-                <option value="3">한 달 후 알림</option>
-                <option value="2">두 달 후 알림</option>
-                <option value="1">세 달 후 알림</option>
-            </CustomSelect>
+            <>
+                <CustomSelect onChange={onNotificationHandler} defaultValue={notificationDate}>
+                    <option value="0" selected>알림 기한 설정</option>
+                    <option value="5">일주일 후 알림</option>
+                    <option value="4">이주일 후 알림</option>
+                    <option value="3">한 달 후 알림</option>
+                    <option value="2">두 달 후 알림</option>
+                    <option value="1">세 달 후 알림</option>
+                </CustomSelect>
+            </>
         )
     }
 
@@ -86,6 +92,7 @@ function ProblemForm() {
         <LinkInput value={link} onChange={onLinkHandler} placeholder="문제 링크를 입력하세요"></LinkInput>
         <LinkLine />
         <Notification value={notificationDate} />
+
         <StepContainer><StepTitle>난이도</StepTitle><Step onChange={onStepHandler} /></StepContainer>
         <Editor
             initialValue=""
