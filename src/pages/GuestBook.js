@@ -43,6 +43,7 @@ export default function GuestBook() {
 
   const onDeleteClick = async (guestId) => {
     await deleteGuestApi(guestId);
+    getGuestCount();
     getGuestList();
   }
 
@@ -64,6 +65,7 @@ export default function GuestBook() {
       content: content
     }
     await registerGuestApi(data)
+    getGuestCount();
     getGuestList();
   }
 
