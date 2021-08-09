@@ -124,8 +124,8 @@ function GuestList(props) {
         renderItem={item => (
           <List.Item>
             <List.Item.Meta
-              title={item.nickname}
-              description={item.content}
+              title={item.content}
+              description={item.nickname}
             />
             <div>{item.createdDate}</div>
           </List.Item>
