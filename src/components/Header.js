@@ -68,9 +68,15 @@ function HeaderMain() {
 }
 
 function LoginCheck() {
+
+    const onLogout = () => {
+        sessionStorage.clear();
+        window.location.reload();
+    }
+
     if (sessionStorage.getItem("nickname")) {
         return (
-            <Welcome><b>{sessionStorage.getItem("nickname")}</b>님 환영합니다!</Welcome>
+            <Welcome><b>{sessionStorage.getItem("nickname")}</b>님 환영합니다!<Logout onClick={onLogout}>logout</Logout></Welcome>
         )
     }
     return (<></>)
@@ -84,6 +90,14 @@ const Welcome = styled.span`
     position: absolute;
     right: 0.5%;
     padding: 0.5%;
+`
+
+const Logout = styled.button`
+    border: none;
+    background: none;
+    margin-left: 5px;
+    color: grey;
+    text-decoration: underline;
 `
 
 export default HeaderMain;
