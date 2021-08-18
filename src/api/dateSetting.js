@@ -4,7 +4,7 @@ function dateSetting(step) {
     let date = new Date();
 
     switch (step) {
-        case "0" || "1":
+        case "0", "1":
             date.setMonth(today.getMonth() + 3); // 3달 후
             break;
         case "2":
